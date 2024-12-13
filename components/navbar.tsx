@@ -103,7 +103,8 @@ const Navbar = () => {
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                     </DropdownMenu> :
-                    <Button className="bg-[#FBA351] hover:bg-[#FDAF66] uppercase font-semibold">Login</Button>}
+                    <Link href="/login"><Button
+                        className="bg-[#FBA351] hover:bg-[#FDAF66] uppercase font-semibold">Login</Button></Link>}
             </div>
         </div>
     );
