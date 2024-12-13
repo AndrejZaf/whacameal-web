@@ -1,6 +1,7 @@
+import Navbar from "@/components/navbar";
 import type { Metadata } from "next";
+import { SessionProvider } from "next-auth/react";
 import { Montserrat, Open_Sans } from "next/font/google";
-import "./globals.css";
 import { ReactNode } from "react";
 
 const montserrat = Montserrat({
@@ -24,10 +25,11 @@ export default function RootLayout({
     children: ReactNode;
 }>) {
     return (
-        <html lang="en">
-        <body className={`${montserrat.variable} ${opensans.variable} antialiased`}>
-        {children}
-        </body>
-        </html>
+        <>
+            <SessionProvider>
+                <Navbar />
+            </SessionProvider>
+            {children}
+        </>
     );
 }

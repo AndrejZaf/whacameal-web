@@ -1,3 +1,5 @@
+"use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,6 +12,7 @@ import {
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { BadgeCheck, LogOut, MenuIcon } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
 
@@ -33,6 +36,7 @@ const navigation = [
 ];
 
 const Navbar = () => {
+    const session = useSession();
     return (
         <div className="flex items-center justify-between px-4 py-2 md:py-0 bg-[#627AF7] dark:bg-gray-800">
             <Sheet>
@@ -75,7 +79,7 @@ const Navbar = () => {
                     </Link>)}
             </div>
             <div className="flex">
-                <DropdownMenu modal={false}>
+                {session.data?.user ? <DropdownMenu modal={false}>
                     <DropdownMenuTrigger asChild>
                         <Avatar>
                             <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
@@ -98,7 +102,8 @@ const Navbar = () => {
                             Log out
                         </DropdownMenuItem>
                     </DropdownMenuContent>
-                </DropdownMenu>
+                    </DropdownMenu> :
+                    <Button className="bg-[#FBA351] hover:bg-[#FDAF66] uppercase font-semibold">Login</Button>}
             </div>
         </div>
     );
