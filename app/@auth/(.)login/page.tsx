@@ -1,8 +1,7 @@
 "use client";
 
 import LoginForm from "@/components/auth/login-form";
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useEffect, useState } from "react";
 
 const LoginInterceptor = () => {
@@ -18,9 +17,6 @@ const LoginInterceptor = () => {
                     <DialogTitle>Login</DialogTitle>
                 </DialogHeader>
                 <LoginForm />
-                <DialogFooter>
-                    <Button type="submit">Save changes</Button>
-                </DialogFooter>
             </DialogContent>
         </Dialog>
     );
