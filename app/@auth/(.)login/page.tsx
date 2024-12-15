@@ -12,7 +12,7 @@ const LoginInterceptor = () => {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="sm:max-w-sm">
                 <DialogHeader>
                     <DialogTitle>Login</DialogTitle>
                 </DialogHeader>
