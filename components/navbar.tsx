@@ -80,31 +80,32 @@ const Navbar = () => {
             </div>
             <div className="flex">
                 {session.data?.user ? <DropdownMenu modal={false}>
-                    <DropdownMenuTrigger asChild>
-                        <Avatar>
-                            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
-                            <AvatarFallback>CN</AvatarFallback>
-                        </Avatar>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent
-                        className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-                        side="bottom"
-                        align="end"
-                        sideOffset={4}
-                    >
-                        <DropdownMenuItem>
-                            <BadgeCheck />
-                            Account
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>
-                            <LogOut />
-                            Log out
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
+                        <DropdownMenuTrigger asChild>
+                            <Avatar>
+                                <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                                <AvatarFallback>CN</AvatarFallback>
+                            </Avatar>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent
+                            className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+                            side="bottom"
+                            align="end"
+                            sideOffset={4}>
+                            <DropdownMenuItem>
+                                <BadgeCheck />
+                                Account
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem>
+                                <LogOut />
+                                Log out
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
                     </DropdownMenu> :
-                    <Link href="/login"><Button
-                        className="bg-[#FBA351] hover:bg-[#FDAF66] uppercase font-semibold">Login</Button></Link>}
+                    <Link href="/login">
+                        <Button variant="default">Login</Button>
+                    </Link>
+                }
             </div>
         </div>
     );
