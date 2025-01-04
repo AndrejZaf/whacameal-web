@@ -23,7 +23,7 @@ const LoginForm = () => {
                         Forgot your password?
                     </Link>
                 </div>
-                <Input id="password" type="password" required />
+                <Input id="password" type="password" required placeholder="*********" />
             </div>
             <Button type="submit" className="w-full">
                 Login
