@@ -12,7 +12,7 @@ import {
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { BadgeCheck, LogOut, MenuIcon } from "lucide-react";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
 
@@ -96,7 +96,7 @@ const Navbar = () => {
                                 Account
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem>
+                            <DropdownMenuItem className="cursor-pointer" onClick={() => signOut()}>
                                 <LogOut />
                                 Log out
                             </DropdownMenuItem>
