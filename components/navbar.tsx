@@ -80,7 +80,7 @@ const Navbar = () => {
             </div>
             <div className="flex">
                 {session.data?.user ? <DropdownMenu modal={false}>
-                        <DropdownMenuTrigger asChild>
+                        <DropdownMenuTrigger asChild className="cursor-pointer">
                             <Avatar>
                                 <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
                                 <AvatarFallback>CN</AvatarFallback>

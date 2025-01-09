@@ -14,7 +14,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
 
     const { email, password } = validatedFields.data;
     const existingUser = await findByEmail(email);
-    if (!existingUser || !existingUser.email || !existingUser.password) {
+    if (!existingUser) {
         return { error: "Email does not exist" };
     }
 
@@ -22,11 +22,10 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
         await signIn("credentials", { email, password, redirectTo: "/" });
     } catch (error) {
         if (error instanceof AuthError) {
-            switch (error.type) {
-                case "CredentialsSignin":
-                    return { error: "Invalid credentials" };
-                default:
-                    return { error: "Something went wrong!" };
+            if (error.type === "CredentialsSignin") {
+                return { error: "Invalid credentials" };
+            } else {
+                return { error: "Something went wrong!" };
             }
         }
         throw error;
