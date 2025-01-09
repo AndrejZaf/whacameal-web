@@ -15,6 +15,13 @@
       "when": 1736371351225,
       "tag": "0001_quick_freak",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1736429579813,
+      "tag": "0002_gorgeous_kitty_pryde",
+      "breakpoints": true
     }
   ]
 }
