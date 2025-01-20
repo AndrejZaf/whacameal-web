@@ -3,7 +3,7 @@
 import { login } from "@/actions/auth/login.action";
 import FormError from "@/components/form-error";
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { LoginSchema } from "@/lib/validation/login.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -43,6 +43,7 @@ const LoginForm = () => {
                         <FormControl>
                             <Input {...field} placeholder={"john.doe@example.com"} type="email" disabled={pending} />
                         </FormControl>
+                        <FormMessage />
                     </FormItem>
                 )} />
                 <FormField control={form.control} name="password" render={({ field }) => (
@@ -56,6 +57,7 @@ const LoginForm = () => {
                         <FormControl>
                             <Input {...field} placeholder="********" type="password" disabled={pending} />
                         </FormControl>
+                        <FormMessage />
                     </FormItem>
                 )} />
                 <Button type="submit" className="w-full" disabled={pending}>
