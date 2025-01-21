@@ -7,7 +7,7 @@ const AuthSidebar = () => {
             <div className="absolute inset-0 bg-[url('/cover.webp')] bg-cover" />
             <div className="relative z-20 flex items-center text-lg font-medium">
                 <Link href="/" className="flex items-center gap-2">
-                    <img alt="Whac a meal" src="./whc_logo.svg" />
+                    <img alt="Whac a meal" src="../whc_logo.svg" />
                 </Link>
             </div>
             <div className="relative z-20 mt-auto">

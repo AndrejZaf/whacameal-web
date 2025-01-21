@@ -12,7 +12,8 @@ export const tokens = pgTable(
         type: tokenType()
             .notNull(),
         userId: text("user_id")
-            .references((): AnyPgColumn => users.id),
+            .references((): AnyPgColumn => users.id)
+            .notNull(),
         expires: timestamp("expires", { mode: "date" })
             .notNull()
     }

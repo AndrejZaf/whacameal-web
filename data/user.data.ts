@@ -1,5 +1,6 @@
 import { db, lower } from "@/db";
 import { users } from "@/db/schema/user";
+import { User } from "@/db/types";
 import { RegisterSchema } from "@/lib/validation/register.schema";
 import { genSalt, hash } from "bcrypt-ts";
 import { eq } from "drizzle-orm";
@@ -26,4 +27,18 @@ export const create = async (values: z.infer<typeof RegisterSchema>) => {
             username: values.username,
             password: hashedPassword
         });
+};
+
+export const findById = async (id: string) => {
+    return db.query.users.findFirst({
+        where: eq(users.id, id)
+    });
+};
+
+export const updatePassword = async (user: User, password: string) => {
+    const salt = await genSalt(10);
+    user.password = await hash(password, salt);
+    await db.update(users)
+        .set(user)
+        .where(eq(users.id, user.id));
 };
