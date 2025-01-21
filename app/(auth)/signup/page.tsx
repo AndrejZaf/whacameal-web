@@ -1,6 +1,6 @@
 import AuthSidebar from "@/components/auth-sidebar";
 import SignupForm from "@/components/auth/signup-form";
-import { Link } from "@/components/link";
+import Link from "next/link";
 import React from "react";
 
 const LoginPage = () => {
@@ -21,7 +21,7 @@ const LoginPage = () => {
                     <SignupForm />
                     <div className="mt-4 text-center text-sm">
                         Already have an account?{" "}
-                        <Link href="/login" redirectType={"hard"} className="underline">
+                        <Link href="/login" className="underline">
                             Log In
                         </Link>
                     </div>
