@@ -1,6 +1,6 @@
 import { db } from "@/db";
 import { tokens } from "@/db/schema";
-import { and, eq } from "drizzle-orm";
+import { and, eq, lt } from "drizzle-orm";
 
 export const create = async (userId: string, type: "FORGOT_PASSWORD" | "VERIFICATION") => {
     const expirationDate = new Date();
@@ -23,4 +23,9 @@ export const findByIdAndType = async (tokenId: string, type: "FORGOT_PASSWORD" |
 export const deleteById = async (tokenId: string) => {
     return db.delete(tokens)
         .where(eq(tokens.id, tokenId));
+};
+
+export const clear = async () => {
+    await db.delete(tokens)
+        .where(lt(tokens.expires, new Date()));
 };

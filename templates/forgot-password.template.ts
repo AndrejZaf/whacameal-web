@@ -15,7 +15,9 @@ export const generateForgotPasswordMailTemplate = (tokenId: string, host: string
         <br />
         Click the button below to reset your password.</p>
         <a style="margin-top: 10px; background-color: #fba350; text-transform: uppercase; color: white; font-weight: bold; text-decoration: none; padding: 8px 40px; border-radius: 6px; font-size: 14px;" href="${host}/forgot-password/${tokenId}">Reset password</a>
-        <p style="font-size: 12px; margin-top: 20px;">If you did not submit this request, please ignore it.</p>
+        <p style="font-size: 12px; margin-top: 20px;">If you did not submit this request, please ignore it.
+        <br />
+        Otherwise the request will expire in 24 hours.</p>
     </div>
 </body>
 </html>
