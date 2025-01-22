@@ -54,7 +54,7 @@ const LoginForm = () => {
         <Form {...form}>
             {error && <FormError message={error} />}
             {verificationError &&
-                <Button onClick={() => requestEmailVerification()} variant="secondary" className="w-full">
+                <Button onClick={requestEmailVerification} variant="secondary" className="w-full">
                     Request verification email
                 </Button>}
             <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
