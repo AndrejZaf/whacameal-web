@@ -1,7 +1,9 @@
 "use client";
 
 import { login } from "@/actions/auth/login.action";
+import { verificationRequest } from "@/actions/auth/verification-request.action";
 import FormError from "@/components/form-error";
+import FormSuccess from "@/components/form-success";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -15,6 +17,8 @@ import { z } from "zod";
 const LoginForm = () => {
     const [pending, setPending] = useTransition();
     const [error, setError] = useState<string | undefined>();
+    const [successMessage, setSuccessMessage] = useState<string | undefined>();
+    const [verificationError, setVerificationError] = useState<boolean | undefined>();
     const form = useForm<z.infer<typeof LoginSchema>>({
         resolver: zodResolver(LoginSchema),
         defaultValues: {
@@ -28,14 +32,31 @@ const LoginForm = () => {
         startTransition(async () => {
             login(values)
                 .then((data) => {
-                    setError(data?.error);
+                    if (data?.error) {
+                        setVerificationError(data?.verification);
+                        setError(data?.error);
+                    }
                 });
         });
     };
 
+    const requestEmailVerification = async () => {
+        setError("");
+        await verificationRequest(form.getValues().email);
+        setSuccessMessage("A verification email has been sent, please check your inbox.");
+    };
+
+    if (successMessage) {
+        return <FormSuccess message={successMessage} />;
+    }
+
     return (
         <Form {...form}>
             {error && <FormError message={error} />}
+            {verificationError &&
+                <Button onClick={() => requestEmailVerification()} variant="secondary" className="w-full">
+                    Request verification email
+                </Button>}
             <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
                 <FormField control={form.control} name="email" render={({ field }) => (
                     <FormItem>

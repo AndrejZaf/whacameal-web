@@ -13,7 +13,7 @@ export const forgotPassword = async (values: z.infer<typeof ForgotPasswordSchema
         return { error: "User not found" };
     }
 
-    const token = await create(user.id);
+    const token = await create(user.id, "FORGOT_PASSWORD");
     const mailOptions = {
         from: process.env.SMTP_EMAIL,
         to: user.email,

@@ -2,13 +2,13 @@ import { db } from "@/db";
 import { tokens } from "@/db/schema";
 import { and, eq } from "drizzle-orm";
 
-export const create = async (userId: string) => {
+export const create = async (userId: string, type: "FORGOT_PASSWORD" | "VERIFICATION") => {
     const expirationDate = new Date();
     expirationDate.setDate(expirationDate.getDate() + 1);
     return db.insert(tokens)
         .values({
             userId: userId,
-            type: "FORGOT_PASSWORD",
+            type: type,
             expires: expirationDate
         })
         .returning({ id: tokens.id });

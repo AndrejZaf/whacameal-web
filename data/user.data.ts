@@ -35,9 +35,7 @@ export const findById = async (id: string) => {
     });
 };
 
-export const updatePassword = async (user: User, password: string) => {
-    const salt = await genSalt(10);
-    user.password = await hash(password, salt);
+export const update = async (user: User) => {
     await db.update(users)
         .set(user)
         .where(eq(users.id, user.id));

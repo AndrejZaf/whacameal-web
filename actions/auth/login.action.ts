@@ -18,6 +18,13 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
         return { error: "Email does not exist" };
     }
 
+    if (!existingUser.emailVerified) {
+        return {
+            error: "Email is not verified, click on the button below to request verification email.",
+            verification: true
+        };
+    }
+
     try {
         await signIn("credentials", { email, password, redirectTo: "/" });
     } catch (error) {
