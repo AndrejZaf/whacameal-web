@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<p align="center">
+<img align="center" width="300" alt="Pokeball Logo" src="./public/whc_logo.svg" />
+</p>
+<h1 align="center" style="font-weight: bold;">Whac a Meal</h1>
 
-## Getting Started
+<p align="center">
+  <a href="#tech">Technologies</a> •
+  <a href="#started">Getting Started</a>
+</p>
 
-First, run the development server:
+<p align="center">
+    <b>Exploring NextJS by creating a blog like application for managing and exploring recipes.
+    </b>
+</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<p align="center">
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[//]: # (<img align="center" alt="Pokeball Logo" src="./public/chrome_TGFPhysk4K.gif" />)
+</p>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+<h2 id="technologies">💻 Technologies</h2>
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- ![NextJS](https://img.shields.io/badge/Next.js-black?logo=next.js&logoColor=white)
+- ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff)
+- ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff)
+- ![PostgreSQL](https://img.shields.io/badge/Postgresql-30363D?logo=postgresql&logoColor=white)
+- ![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-000?logo=shadcnui&logoColor=fff)
+- ![TailwindCSS](https://img.shields.io/badge/Tailwind%20CSS-%2338B2AC.svg?logo=tailwind-css&logoColor=white)
 
-## Learn More
+<h2 id="started">🚀 Getting started</h2>
+<h3>Prerequisites</h3>
 
-To learn more about Next.js, take a look at the following resources:
+- [Node.js](https://nodejs.org/en/download/package-manager) - **Node 22**
+- [TypeScript](https://www.npmjs.com/package/typescript)
+- [Docker](https://www.docker.com/products/docker-desktop/)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<h3>Starting the Project</h3>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Clone the project, install the node dependencies by running `npm install` and then you can start the application with
+  `npm run dev`.
