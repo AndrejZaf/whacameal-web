@@ -1,6 +1,8 @@
 import { users } from "@/db/schema/user";
-import { AnyPgColumn, integer, pgTable, text } from "drizzle-orm/pg-core";
+import { AnyPgColumn, integer, pgEnum, pgTable, text } from "drizzle-orm/pg-core";
 
+export const mealType = pgEnum("meal_type", ["BREAKFAST", "BRUNCH", "LUNCH", "DINNER", "SNACK", "LATE_NIGHT", "HOLIDAY"]);
+export const mealCourse = pgEnum("meal_course", ["APPETIZER", "SOUP", "SALAD", "MAIN_COURSE", "SIDE_DISH", "DESSERT"]);
 export const recipes = pgTable(
     "recipe",
     {
@@ -19,6 +21,10 @@ export const recipes = pgTable(
         servings: integer("servings")
             .notNull(),
         instructions: text("instructions")
-            .notNull()
-    }
+            .notNull(),
+        mealType: mealType("meal_type")
+            .notNull(),
+        mealCourse: mealCourse("meal_course")
+            .notNull(),
+    },
 );
