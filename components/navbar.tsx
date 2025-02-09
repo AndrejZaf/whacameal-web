@@ -7,7 +7,7 @@ import {
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuSeparator,
-    DropdownMenuTrigger
+    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
@@ -19,26 +19,26 @@ import React from "react";
 const navigation = [
     {
         href: "/home",
-        label: "Home"
+        label: "Home",
     },
     {
         href: "/recipes",
-        label: "Recipes"
+        label: "Recipes",
     },
     {
         href: "/explore",
-        label: "Explore"
+        label: "Explore",
     },
     {
         href: "/dashboard",
-        label: "Dashboard"
-    }
+        label: "Dashboard",
+    },
 ];
 
 const Navbar = () => {
     const session = useSession();
     return (
-        <div className="flex items-center justify-between px-4 py-2 md:py-0 bg-[#627AF7] dark:bg-gray-800">
+        <div className="flex items-center justify-between px-4 py-2 md:py-0 bg-[#627AF7] dark:bg-gray-800 mb-4">
             <Sheet>
                 <SheetTrigger asChild>
                     <Button variant="outline" size="icon" className="md:hidden bg-[#627AF7]">
@@ -92,8 +92,12 @@ const Navbar = () => {
                             align="end"
                             sideOffset={4}>
                             <DropdownMenuItem>
-                                <BadgeCheck />
-                                Account
+                                <Link href="/account">
+                                    <div className="flex text-sm gap-2 items-center justify-start">
+                                    <BadgeCheck size={16} />
+                                    Account
+                                    </div>
+                                </Link>
                             </DropdownMenuItem>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem className="cursor-pointer" onClick={() => signOut()}>

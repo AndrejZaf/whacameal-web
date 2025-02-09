@@ -1,15 +1,28 @@
 import { LoginSchema } from "@/lib/validation/login.schema";
 import { compare } from "bcrypt-ts";
 import type { NextAuthConfig } from "next-auth";
+import { type DefaultSession, type DefaultUser } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { findByEmail } from "./data/user.data";
+
+declare module "next-auth" {
+    interface Session extends DefaultSession {
+        user: DefaultSession["user"] & {
+            username: string;
+        };
+    }
+
+    interface DefaultUser {
+        username: string;
+    }
+}
 
 export default {
     providers: [
         Credentials({
             credentials: {
                 email: {},
-                password: {}
+                password: {},
             },
             authorize: async (credentials) => {
                 const validatedFields = LoginSchema.safeParse(credentials);
@@ -27,17 +40,19 @@ export default {
                 }
 
                 return null;
-            }
-        })
+            },
+        }),
     ],
     callbacks: {
         async session({ session, token }) {
+            session.user.username = token.username as string;
             return session;
         },
         async jwt({ token, user }) {
             if (user) {
+                token.username = (user as DefaultUser).username;
             }
             return token;
-        }
-    }
+        },
+    },
 } satisfies NextAuthConfig;
