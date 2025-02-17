@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import AccountProfile from "@/components/account/account-profile";
 import { TabsContent, TabsList, TabsTrigger, VerticalTabs } from "@/components/ui/vertical-tabs";
 import React from "react";
 
@@ -24,12 +25,14 @@ const AccountPage = async () => {
             <div className="mt-4">
                 <VerticalTabs defaultValue="account" className="flex">
                     <TabsList className="w-1/5 gap-2">
+                        <TabsTrigger value="profile">Profile</TabsTrigger>
                         <TabsTrigger value="account">Account</TabsTrigger>
-                        <TabsTrigger value="password">Password</TabsTrigger>
+                        <TabsTrigger value="appearance">Appearance</TabsTrigger>
                     </TabsList>
                     <div className="flex-1 lg:max-w-2xl ml-12">
-                        <TabsContent value="account">Make changes to your account here.</TabsContent>
-                        <TabsContent value="password">Change your password here.</TabsContent>
+                        <TabsContent value="profile"><AccountProfile /></TabsContent>
+                        <TabsContent value="account">Change your password here.</TabsContent>
+                        <TabsContent value="appearance">Change your password here.</TabsContent>
                     </div>
                 </VerticalTabs>
             </div>
