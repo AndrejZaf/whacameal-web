@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
-import AccountProfile from "@/components/account/account-profile";
+import UserProfile from "@/components/account/user-profile";
 import { TabsContent, TabsList, TabsTrigger, VerticalTabs } from "@/components/ui/vertical-tabs";
+import { findById } from "@/data/user.data";
 import React from "react";
 
 const AccountPage = async () => {
@@ -9,7 +10,10 @@ const AccountPage = async () => {
         return null;
     }
 
-    console.log(session.user);
+    const user = await findById(session.user.id);
+    if (!user) {
+        return null;
+    }
 
     return (
         <div className="container mx-auto">
@@ -23,15 +27,13 @@ const AccountPage = async () => {
                 <hr className="mt-4" />
             </div>
             <div className="mt-4">
-                <VerticalTabs defaultValue="account" className="flex">
+                <VerticalTabs defaultValue="account" className="flex items-start">
                     <TabsList className="w-1/5 gap-2">
-                        <TabsTrigger value="profile">Profile</TabsTrigger>
-                        <TabsTrigger value="account">Account</TabsTrigger>
+                        <TabsTrigger value="account">Profile</TabsTrigger>
                         <TabsTrigger value="appearance">Appearance</TabsTrigger>
                     </TabsList>
                     <div className="flex-1 lg:max-w-2xl ml-12">
-                        <TabsContent value="profile"><AccountProfile /></TabsContent>
-                        <TabsContent value="account">Change your password here.</TabsContent>
+                        <TabsContent value="account"><UserProfile user={user} /></TabsContent>
                         <TabsContent value="appearance">Change your password here.</TabsContent>
                     </div>
                 </VerticalTabs>

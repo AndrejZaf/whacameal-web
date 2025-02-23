@@ -3,17 +3,19 @@ import { compare } from "bcrypt-ts";
 import type { NextAuthConfig } from "next-auth";
 import { type DefaultSession, type DefaultUser } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { findByEmail } from "./data/user.data";
+import { findByEmail, findById } from "./data/user.data";
 
 declare module "next-auth" {
     interface Session extends DefaultSession {
         user: DefaultSession["user"] & {
             username: string;
+            id: string;
         };
     }
 
     interface DefaultUser {
         username: string;
+        id: string;
     }
 }
 
@@ -45,12 +47,14 @@ export default {
     ],
     callbacks: {
         async session({ session, token }) {
+            session.user.id = token.id as string;
             session.user.username = token.username as string;
             return session;
         },
         async jwt({ token, user }) {
             if (user) {
                 token.username = (user as DefaultUser).username;
+                token.id = (user as DefaultUser).id;
             }
             return token;
         },
