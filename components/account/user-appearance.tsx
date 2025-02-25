@@ -11,11 +11,11 @@ import { z } from "zod";
 
 
 const UserAppearance = () => {
-    const { setTheme } = useTheme();
+    const { theme, setTheme } = useTheme();
     const form = useForm<z.infer<typeof AppearanceSchema>>({
         resolver: zodResolver(AppearanceSchema),
         defaultValues: {
-            theme: "light",
+            theme: theme as "light" | "dark",
         },
     });
 

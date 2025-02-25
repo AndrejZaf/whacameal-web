@@ -25,7 +25,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode;
         <body className={`${montserrat.variable} ${opensans.variable} antialiased`}>
         <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="light"
             enableSystem
             disableTransitionOnChange
         >
