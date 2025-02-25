@@ -13,10 +13,9 @@ const UserProfile = ({ user }: { user: User }) => {
         if (!e || !e.target || !e.target.files || !user) {
             return;
         }
+
         const file = e.target.files[0];
-
         const reader = new FileReader();
-
         reader.onloadend = () => {
             const result = reader.result;
             uploadImage(user.id!, result as string);

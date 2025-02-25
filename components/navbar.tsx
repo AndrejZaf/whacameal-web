@@ -10,6 +10,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { User } from "@/db/types";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { BadgeCheck, LogOut, MenuIcon } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
@@ -35,7 +36,7 @@ const navigation = [
     },
 ];
 
-const Navbar = () => {
+const Navbar = ({ user }: { user: User | null | undefined }) => {
     const session = useSession();
     return (
         <div className="flex items-center justify-between px-4 py-2 md:py-0 bg-[#627AF7] dark:bg-gray-800 mb-4">
@@ -79,10 +80,11 @@ const Navbar = () => {
                     </Link>)}
             </div>
             <div className="flex">
-                {session.data?.user ? <DropdownMenu modal={false}>
+                {session.data?.user && user ? <DropdownMenu modal={false}>
                         <DropdownMenuTrigger asChild className="cursor-pointer">
                             <Avatar>
-                                <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                                <AvatarImage src={user.image ?? "https://github.com/shadcn.png"}
+                                             alt="User profile image" />
                                 <AvatarFallback>CN</AvatarFallback>
                             </Avatar>
                         </DropdownMenuTrigger>
@@ -94,8 +96,8 @@ const Navbar = () => {
                             <DropdownMenuItem>
                                 <Link href="/account">
                                     <div className="flex text-sm gap-2 items-center justify-start">
-                                    <BadgeCheck size={16} />
-                                    Account
+                                        <BadgeCheck size={16} />
+                                        Account
                                     </div>
                                 </Link>
                             </DropdownMenuItem>
