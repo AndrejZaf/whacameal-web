@@ -19,7 +19,7 @@ import React from "react";
 
 const navigation = [
     {
-        href: "/home",
+        href: "/",
         label: "Home",
     },
     {

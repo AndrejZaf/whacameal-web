@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import UserAppearance from "@/components/account/user-appearance";
 import UserProfile from "@/components/account/user-profile";
 import { TabsContent, TabsList, TabsTrigger, VerticalTabs } from "@/components/ui/vertical-tabs";
 import { findById } from "@/data/user.data";
@@ -34,7 +35,7 @@ const AccountPage = async () => {
                     </TabsList>
                     <div className="flex-1 lg:max-w-2xl ml-12">
                         <TabsContent value="account"><UserProfile user={user} /></TabsContent>
-                        <TabsContent value="appearance">Change your password here.</TabsContent>
+                        <TabsContent value="appearance"><UserAppearance /></TabsContent>
                     </div>
                 </VerticalTabs>
             </div>
