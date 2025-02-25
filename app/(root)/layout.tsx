@@ -1,6 +1,6 @@
+import { findAccountById } from "@/actions/account/find-account-by-id.action";
 import { auth } from "@/auth";
 import Navbar from "@/components/navbar";
-import { findById } from "@/data/user.data";
 import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
 import { ReactNode } from "react";
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: Readonly<{ children: ReactNode; }>) {
     const session = await auth();
-    const user = session ? await findById(session.user.id) : null;
+    const user = session ? await findAccountById(session.user.id) : null;
     return (
         <>
             <SessionProvider>
