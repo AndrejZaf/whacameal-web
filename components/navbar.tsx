@@ -23,23 +23,23 @@ const navigation = [
         label: "Home",
     },
     {
-        href: "/recipes",
-        label: "Recipes",
-    },
-    {
         href: "/explore",
         label: "Explore",
     },
     {
-        href: "/dashboard",
-        label: "Dashboard",
+        href: "/my-recipes",
+        label: "My Recipes",
+    },
+    {
+        href: "/chef",
+        label: "AI Chef",
     },
 ];
 
 const Navbar = ({ user }: { user: User | null | undefined }) => {
     const session = useSession();
     return (
-        <div className="flex items-center justify-between px-4 py-2 md:py-0 bg-[#627AF7] dark:bg-gray-800 mb-4">
+        <div className="flex items-center justify-between px-4 py-2 md:py-0 bg-[#627AF7] dark:bg-gray-800">
             <Sheet>
                 <SheetTrigger asChild>
                     <Button variant="outline" size="icon" className="md:hidden bg-[#627AF7]">
