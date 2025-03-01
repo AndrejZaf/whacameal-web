@@ -31,7 +31,7 @@ const navigation = [
         label: "My Recipes",
     },
     {
-        href: "/chef",
+        href: "/ai-chef",
         label: "AI Chef",
     },
 ];
