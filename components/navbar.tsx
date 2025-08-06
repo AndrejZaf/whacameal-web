@@ -18,6 +18,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { User } from "@/db/types";
+import { authClient } from "@/lib/auth-client";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { BadgeCheck, LogOut, MenuIcon } from "lucide-react";
 import Link from "next/link";
@@ -42,8 +43,9 @@ const navigation = [
   },
 ];
 
-const Navbar = ({ user }: { user: User | null | undefined }) => {
-  const session = undefined;
+const Navbar = () => {
+  const { data } = authClient.useSession();
+
   return (
     <div className="flex items-center justify-between px-4 py-2 md:py-0 bg-[#627AF7] dark:bg-gray-800">
       <Sheet>
@@ -94,12 +96,12 @@ const Navbar = ({ user }: { user: User | null | undefined }) => {
         ))}
       </div>
       <div className="flex">
-        {session.data?.user && user ? (
+        {data && data.user ? (
           <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild className="cursor-pointer">
               <Avatar>
                 <AvatarImage
-                  src={user.image ?? "https://github.com/shadcn.png"}
+                  src={data.user.image ?? "https://github.com/shadcn.png"}
                   alt="User profile image"
                 />
                 <AvatarFallback>CN</AvatarFallback>
@@ -122,7 +124,7 @@ const Navbar = ({ user }: { user: User | null | undefined }) => {
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 className="cursor-pointer"
-                onClick={() => console.log("Log out")}
+                onClick={() => authClient.signOut()}
               >
                 <LogOut />
                 Log out

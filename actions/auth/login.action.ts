@@ -3,6 +3,7 @@
 import { auth } from "@/auth";
 import { findByUsername } from "@/data/user.data";
 import { LoginSchema } from "@/lib/validation/login.schema";
+import { redirect } from "next/navigation";
 import { z } from "zod";
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {

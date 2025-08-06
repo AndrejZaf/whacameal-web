@@ -14,15 +14,17 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { authClient } from "@/lib/auth-client";
 import { LoginSchema } from "@/lib/validation/login.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import React, { startTransition, useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const LoginForm = () => {
-  const [pending, setPending] = useTransition();
+  const router = useRouter();
   const [error, setError] = useState<string | undefined>();
   const [successMessage, setSuccessMessage] = useState<string | undefined>();
   const [verificationError, setVerificationError] = useState<
@@ -38,11 +40,20 @@ const LoginForm = () => {
 
   const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
     setError("");
-    const data = await login(values);
-    if (data?.error) {
-      setVerificationError(data?.verification);
-      setError(data?.error);
-    }
+    try {
+      await authClient.signIn.email({
+        email: values.username,
+        password: values.password,
+        callbackURL: "/",
+      });
+    } catch (error) {}
+    // const data = await login(values);
+    // if (data?.error) {
+    //   setVerificationError(data?.verification);
+    //   setError(data?.error);
+    // } else {
+    //   router.push("/");
+    // }
   };
 
   const requestEmailVerification = async () => {
@@ -77,7 +88,7 @@ const LoginForm = () => {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input {...field} placeholder={"john.doe"} disabled={pending} />
+                <Input {...field} placeholder={"john.doe"} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -98,21 +109,16 @@ const LoginForm = () => {
                 </Link>
               </div>
               <FormControl>
-                <Input
-                  {...field}
-                  placeholder="********"
-                  type="password"
-                  disabled={pending}
-                />
+                <Input {...field} placeholder="********" type="password" />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full" disabled={pending}>
+        <Button type="submit" className="w-full">
           Login
         </Button>
-        <Button variant="outline" className="w-full" disabled={pending}>
+        <Button variant="outline" className="w-full">
           Login with Google
         </Button>
       </form>

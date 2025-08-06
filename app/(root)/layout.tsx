@@ -1,4 +1,3 @@
-import { findAccountById } from "@/actions/account/find-account-by-id.action";
 import Navbar from "@/components/navbar";
 import type { Metadata } from "next";
 import { ReactNode } from "react";
@@ -11,11 +10,9 @@ export const metadata: Metadata = {
 export default async function RootLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
-  const session = undefined;
-  const user = session ? await findAccountById(session.user.id) : null;
   return (
     <>
-      {session && <Navbar user={user} />}
+      <Navbar />
       {children}
     </>
   );
