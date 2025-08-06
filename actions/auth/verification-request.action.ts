@@ -1,10 +1,10 @@
 "use server";
 
 import { auth } from "@/auth";
-import { findByUsername } from "@/data/user.data";
+import { findByEmail } from "@/data/user.data";
 
-export const verificationRequest = async (username: string) => {
-  const user = await findByUsername(username);
+export const verificationRequest = async (email: string) => {
+  const user = await findByEmail(email);
   if (!user) {
     return { error: "User not found" };
   }

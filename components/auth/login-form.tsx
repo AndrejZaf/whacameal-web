@@ -1,6 +1,5 @@
 "use client";
 
-import { login } from "@/actions/auth/login.action";
 import { verificationRequest } from "@/actions/auth/verification-request.action";
 import FormError from "@/components/form-error";
 import FormSuccess from "@/components/form-success";
@@ -33,32 +32,29 @@ const LoginForm = () => {
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
-      username: "",
+      email: "",
       password: "",
     },
   });
 
   const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
     setError("");
-    try {
-      await authClient.signIn.email({
-        email: values.username,
-        password: values.password,
-        callbackURL: "/",
-      });
-    } catch (error) {}
-    // const data = await login(values);
-    // if (data?.error) {
-    //   setVerificationError(data?.verification);
-    //   setError(data?.error);
-    // } else {
-    //   router.push("/");
-    // }
+    const data = await authClient.signIn.email({
+      email: values.email,
+      password: values.password,
+      callbackURL: "/",
+    });
+    if (data.error?.code) {
+      if (data.error.code === "EMAIL_NOT_VERIFIED") {
+        setVerificationError(true);
+      }
+      setError(data.error.message);
+    }
   };
 
   const requestEmailVerification = async () => {
     setError("");
-    await verificationRequest(form.getValues().username);
+    await verificationRequest(form.getValues().email);
     setSuccessMessage(
       "A verification email has been sent, please check your inbox."
     );
@@ -83,12 +79,16 @@ const LoginForm = () => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
         <FormField
           control={form.control}
-          name="username"
+          name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input {...field} placeholder={"john.doe"} />
+                <Input
+                  {...field}
+                  placeholder={"john.doe@example.com"}
+                  type="email"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
