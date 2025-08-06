@@ -1,5 +1,6 @@
+import { auth } from "@/auth";
 import { db, lower } from "@/db";
-import { users } from "@/db/schema/user";
+import { user } from "@/db/schema";
 import { User } from "@/db/types";
 import { RegisterSchema } from "@/lib/validation/register.schema";
 import { genSalt, hash } from "bcrypt-ts";
@@ -7,36 +8,35 @@ import { eq } from "drizzle-orm";
 import { z } from "zod";
 
 export const findByEmail = async (email: string) => {
-    return db.query.users.findFirst({
-        where: eq(lower(users.email), email.toLowerCase())
-    });
+  return db.query.user.findFirst({
+    where: eq(lower(user.email), email.toLowerCase()),
+  });
 };
 
 export const findByUsername = async (username: string) => {
-    return db.query.users.findFirst({
-        where: eq(users.username, username)
-    });
+  return db.query.user.findFirst({
+    where: eq(user.username, username),
+  });
 };
 
 export const create = async (values: z.infer<typeof RegisterSchema>) => {
-    const salt = await genSalt(10);
-    const hashedPassword = await hash(values.password, salt);
-    return db.insert(users)
-        .values({
-            email: values.email,
-            username: values.username,
-            password: hashedPassword
-        });
+  await auth.api.signUpEmail({
+    body: {
+      name: values.name,
+      email: values.email,
+      password: values.password,
+      username: values.username,
+      displayUsername: values.username,
+    },
+  });
 };
 
 export const findById = async (id: string) => {
-    return db.query.users.findFirst({
-        where: eq(users.id, id)
-    });
+  return db.query.user.findFirst({
+    where: eq(user.id, id),
+  });
 };
 
 export const update = async (user: User) => {
-    await db.update(users)
-        .set(user)
-        .where(eq(users.id, user.id));
+  await db.update(user).set(user).where(eq(user.id, user.id));
 };
