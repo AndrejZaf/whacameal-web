@@ -17,12 +17,10 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { User } from "@/db/types";
 import { authClient } from "@/lib/auth-client";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { BadgeCheck, LogOut, MenuIcon } from "lucide-react";
 import Link from "next/link";
-import React from "react";
 
 const navigation = [
   {
@@ -64,7 +62,8 @@ const Navbar = () => {
             <SheetHeader>
               <SheetTitle>Edit profile</SheetTitle>
               <SheetDescription>
-                Make changes to your profile here. Click save when you're done.
+                Make changes to your profile here. Click save when you&apos;re
+                done.
               </SheetDescription>
             </SheetHeader>
           </VisuallyHidden>

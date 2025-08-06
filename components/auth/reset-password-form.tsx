@@ -22,7 +22,7 @@ import { z } from "zod";
 const ResetPasswordForm = ({ token }: { token: string }) => {
   const [error, setError] = useState<string | undefined>();
   const [successMessage, setSuccessMessage] = useState<string | undefined>();
-  const [pending, setPending] = useTransition();
+  const [pending] = useTransition();
   const form = useForm<z.infer<typeof ResetPasswordSchema>>({
     resolver: zodResolver(ResetPasswordSchema),
     defaultValues: {

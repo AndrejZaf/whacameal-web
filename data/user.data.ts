@@ -3,7 +3,6 @@ import { db, lower } from "@/db";
 import { user } from "@/db/schema";
 import { User } from "@/db/types";
 import { RegisterSchema } from "@/lib/validation/register.schema";
-import { genSalt, hash } from "bcrypt-ts";
 import { eq } from "drizzle-orm";
 import { z } from "zod";
 
@@ -37,6 +36,6 @@ export const findById = async (id: string) => {
   });
 };
 
-export const update = async (user: User) => {
-  await db.update(user).set(user).where(eq(user.id, user.id));
+export const update = async (u: User) => {
+  await db.update(user).set(u).where(eq(user.id, u.id));
 };

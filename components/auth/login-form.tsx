@@ -17,13 +17,11 @@ import { authClient } from "@/lib/auth-client";
 import { LoginSchema } from "@/lib/validation/login.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const LoginForm = () => {
-  const router = useRouter();
   const [error, setError] = useState<string | undefined>();
   const [successMessage, setSuccessMessage] = useState<string | undefined>();
   const [verificationError, setVerificationError] = useState<

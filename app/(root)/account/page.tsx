@@ -6,20 +6,8 @@ import {
   TabsTrigger,
   VerticalTabs,
 } from "@/components/ui/vertical-tabs";
-import { findById } from "@/data/user.data";
-import React from "react";
 
-const AccountPage = async () => {
-  const session = undefined;
-  if (!session?.user) {
-    return null;
-  }
-
-  const user = await findById(session.user.id);
-  if (!user) {
-    return null;
-  }
-
+const AccountPage = () => {
   return (
     <div className="container mx-auto">
       <div className="header">
@@ -35,7 +23,7 @@ const AccountPage = async () => {
           </TabsList>
           <div className="flex-1 lg:max-w-2xl ml-12">
             <TabsContent value="account">
-              <UserProfile user={user} />
+              <UserProfile />
             </TabsContent>
             <TabsContent value="appearance">
               <UserAppearance />
