@@ -13,10 +13,10 @@ export const forgotPassword = async (
     return { error: "User not found" };
   }
 
-  auth.api.forgetPassword({
+  await auth.api.requestPasswordReset({
     body: {
       email: user.email,
-      redirectTo: `${process.env.HOST}/auth/reset-password`,
+      redirectTo: `${process.env.HOST}/forgot-password`,
     },
   });
 };

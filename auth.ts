@@ -5,6 +5,7 @@ import { username } from "better-auth/plugins";
 import * as schema from "@/db/schema";
 import { generateAccountVerificationMail } from "./templates/verify-account.template";
 import { transporter } from "./lib/mail-transporter";
+import { generateForgotPasswordMailTemplate } from "./templates/forgot-password.template";
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
@@ -17,6 +18,15 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,
+    sendResetPassword: async ({ user, token }) => {
+      const mailOptions = {
+        from: process.env.SMTP_EMAIL,
+        to: user.email,
+        subject: "Reset your password - WAM",
+        html: generateForgotPasswordMailTemplate(token, process.env.HOST!),
+      };
+      await transporter.sendMail(mailOptions);
+    },
   },
   emailVerification: {
     sendOnSignUp: true,

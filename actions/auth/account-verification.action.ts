@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 
 export const accountVerification = async (tokenId: string) => {
   try {
-    const data = await auth.api.verifyEmail({
+    await auth.api.verifyEmail({
       query: {
         token: tokenId,
       },
