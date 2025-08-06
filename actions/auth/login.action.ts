@@ -1,5 +1,6 @@
 "use server";
 
+import { auth } from "@/auth";
 import { findByEmail } from "@/data/user.data";
 import { LoginSchema } from "@/lib/validation/login.schema";
 import { z } from "zod";
@@ -25,7 +26,12 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
   }
 
   try {
-    // await signIn("credentials", { email, password, redirectTo: "/" });
+    await auth.api.signInUsername({
+      body: {
+        username: email,
+        password,
+      },
+    });
   } catch (error) {
     if (error instanceof AuthError) {
       if (error.type === "CredentialsSignin") {
