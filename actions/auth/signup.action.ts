@@ -19,5 +19,10 @@ export const signup = async (values: z.infer<typeof RegisterSchema>) => {
     return { error: `User with username ${values.username} already exists` };
   }
 
-  await create(values);
+  try {
+    await create(values);
+  } catch (error) {
+    console.error("Error creating user:", error);
+    return { error: "Password is too short." };
+  }
 };

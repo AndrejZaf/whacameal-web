@@ -22,7 +22,7 @@ export const findByUsername = async (username: string) => {
 export const create = async (values: z.infer<typeof RegisterSchema>) => {
   await auth.api.signUpEmail({
     body: {
-      name: values.name,
+      name: values.username,
       email: values.email,
       password: values.password,
       username: values.username,
