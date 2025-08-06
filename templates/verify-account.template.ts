@@ -1,5 +1,8 @@
-export const generateAccountVerificationMail = (tokenId: string, host: string) => {
-    return `
+export const generateAccountVerificationMail = (
+  tokenId: string,
+  host: string
+) => {
+  return `
 <!DOCTYPE html>
 <html lang="en">
 <head>
