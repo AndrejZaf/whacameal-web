@@ -10,5 +10,5 @@ export const RecipeSchema = z.object({
   course: z.string().min(1, "Course is required"),
   ingredients: z.array(IngredientSchema),
   instructions: z.string().min(1, "Instructions are required"),
-  image: z.instanceof(File).optional(),
+  image: z.instanceof(File),
 });

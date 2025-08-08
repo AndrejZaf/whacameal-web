@@ -16,6 +16,7 @@ export const recipeType = pgEnum("recipe_type", [
   "LATE_NIGHT",
   "HOLIDAY",
 ]);
+
 export const courseType = pgEnum("course_type", [
   "APPETIZER",
   "SOUP",
@@ -53,6 +54,7 @@ export const recipes = pgTable("recipe", {
   courseType: courseType("course_type").notNull(),
   recipeType: recipeType("recipe_type").notNull(),
   instructions: text("instructions").notNull(),
+  image: text("image"),
 });
 
 export const ingredients = pgTable("ingredient", {

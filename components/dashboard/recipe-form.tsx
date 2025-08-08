@@ -1,5 +1,6 @@
 "use client";
 
+import { createRecipe } from "@/actions/recipe/create-recipe.action";
 import { RecipeSchema } from "@/lib/validation/recipe.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -27,8 +28,8 @@ const RecipeForm = () => {
     },
   });
 
-  const handleSubmit = (values: z.infer<typeof RecipeSchema>) => {
-    console.log("Form submitted with values:", values);
+  const handleSubmit = async (values: z.infer<typeof RecipeSchema>) => {
+    await createRecipe(values);
   };
 
   return (

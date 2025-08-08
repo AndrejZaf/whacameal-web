@@ -9,6 +9,14 @@ import {
 import { Input } from "../ui/input";
 import { RecipeSchema } from "@/lib/validation/recipe.schema";
 import { z } from "zod";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import { courseType, recipeType } from "@/db/schema/recipe";
 
 const RecipeInformation = ({
   form,
@@ -42,7 +50,24 @@ const RecipeInformation = ({
             <FormItem className="w-full">
               <FormLabel>Recipe Type</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="Choose an option" />
+                <Select onValueChange={field.onChange}>
+                  <FormControl>
+                    <SelectTrigger className="w-full capitalize">
+                      <SelectValue placeholder={"Select type"} />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {Object.values(recipeType.enumValues).map((value) => (
+                      <SelectItem
+                        key={value}
+                        className="capitalize"
+                        value={value}
+                      >
+                        {value.toLocaleLowerCase().split("_").join(" ")}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -96,7 +121,24 @@ const RecipeInformation = ({
             <FormItem className="w-full">
               <FormLabel>Course</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="Course" />
+                <Select onValueChange={field.onChange}>
+                  <FormControl>
+                    <SelectTrigger className="w-full capitalize">
+                      <SelectValue placeholder={"Select type"} />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {Object.values(courseType.enumValues).map((value) => (
+                      <SelectItem
+                        key={value}
+                        className="capitalize"
+                        value={value}
+                      >
+                        {value.toLocaleLowerCase().split("_").join(" ")}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </FormControl>
               <FormMessage />
             </FormItem>

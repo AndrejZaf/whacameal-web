@@ -24,6 +24,14 @@ import { z } from "zod";
 import { RecipeSchema } from "@/lib/validation/recipe.schema";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+import { measurementType } from "@/db/schema/recipe";
 
 const IngredientsForm = ({
   form,
@@ -48,6 +56,8 @@ const IngredientsForm = ({
     append(values);
     ingredientForm.reset();
   });
+
+  console.log(Object.values(measurementType.enumValues));
 
   return (
     <>
@@ -93,23 +103,40 @@ const IngredientsForm = ({
             name="type"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel htmlFor="ingredient-type">Type</FormLabel>
+                <FormLabel>Measurement Type</FormLabel>
                 <FormControl>
-                  <Input id="ingredient-type" placeholder="Type" {...field} />
+                  <Select onValueChange={field.onChange}>
+                    <FormControl>
+                      <SelectTrigger className="w-full capitalize">
+                        <SelectValue placeholder={"Select type"} />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {Object.values(measurementType.enumValues).map(
+                        (value) => (
+                          <SelectItem
+                            key={value}
+                            className="capitalize"
+                            value={value}
+                          >
+                            {value.toLocaleLowerCase()}
+                          </SelectItem>
+                        )
+                      )}
+                    </SelectContent>
+                  </Select>
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <div className="flex items-end">
-            <Button
-              type="button"
-              onClick={onAddIngredient}
-              className="w-full md:w-auto"
-            >
-              Add
-            </Button>
-          </div>
+          <Button
+            type="button"
+            onClick={onAddIngredient}
+            className="w-full md:w-auto self-end mb-2"
+          >
+            Add
+          </Button>
         </div>
       </Form>
       <div>
@@ -125,7 +152,10 @@ const IngredientsForm = ({
           <TableBody>
             {fields.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={4} className="text-muted-foreground">
+                <TableCell
+                  colSpan={4}
+                  className="text-muted-foreground text-center"
+                >
                   {"No ingredients added yet."}
                 </TableCell>
               </TableRow>
@@ -138,8 +168,8 @@ const IngredientsForm = ({
                   <TableCell>
                     {form.getValues(`ingredients.${index}.amount`)}
                   </TableCell>
-                  <TableCell>
-                    {form.getValues(`ingredients.${index}.type`)}
+                  <TableCell className="capitalize">
+                    {form.getValues(`ingredients.${index}.type`).toLowerCase()}
                   </TableCell>
                   <TableCell className="text-right">
                     <Button
