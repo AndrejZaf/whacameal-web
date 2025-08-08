@@ -5,15 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1754473193500,
-      "tag": "0000_youthful_scarecrow",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1754473721324,
-      "tag": "0001_nosy_rafael_vega",
+      "when": 1754643403450,
+      "tag": "0000_fearless_gamma_corps",
       "breakpoints": true
     }
   ]

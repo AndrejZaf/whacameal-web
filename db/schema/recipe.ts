@@ -7,7 +7,7 @@ import {
   text,
 } from "drizzle-orm/pg-core";
 
-export const mealType = pgEnum("meal_type", [
+export const recipeType = pgEnum("recipe_type", [
   "BREAKFAST",
   "BRUNCH",
   "LUNCH",
@@ -16,7 +16,7 @@ export const mealType = pgEnum("meal_type", [
   "LATE_NIGHT",
   "HOLIDAY",
 ]);
-export const mealCourse = pgEnum("meal_course", [
+export const courseType = pgEnum("course_type", [
   "APPETIZER",
   "SOUP",
   "SALAD",
@@ -24,6 +24,21 @@ export const mealCourse = pgEnum("meal_course", [
   "SIDE_DISH",
   "DESSERT",
 ]);
+
+export const measurementType = pgEnum("measurement_type", [
+  "GRAM",
+  "KILOGRAM",
+  "OUNCE",
+  "POUND",
+  "MILLILITER",
+  "LITER",
+  "CUP",
+  "TABLESPOON",
+  "TEASPOON",
+  "PIECE",
+  "BUNCH",
+]);
+
 export const recipes = pgTable("recipe", {
   id: text("id")
     .primaryKey()
@@ -31,11 +46,23 @@ export const recipes = pgTable("recipe", {
   userId: text("user_id")
     .references((): AnyPgColumn => user.id)
     .notNull(),
-  title: text("title").notNull(),
-  prepTime: integer("prep_time").notNull(),
+  name: text("name").notNull(),
   cookTime: integer("cook_time").notNull(),
+  prepTime: integer("prep_time").notNull(),
   servings: integer("servings").notNull(),
+  courseType: courseType("course_type").notNull(),
+  recipeType: recipeType("recipe_type").notNull(),
   instructions: text("instructions").notNull(),
-  mealType: mealType("meal_type").notNull(),
-  mealCourse: mealCourse("meal_course").notNull(),
+});
+
+export const ingredients = pgTable("ingredient", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  recipeId: text("recipe_id")
+    .references((): AnyPgColumn => recipes.id)
+    .notNull(),
+  name: text("name").notNull(),
+  amount: integer("amount").notNull(),
+  measurementType: measurementType("measurement_type").notNull(),
 });
