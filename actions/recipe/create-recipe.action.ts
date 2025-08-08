@@ -8,4 +8,6 @@ export const createRecipe = async (values: z.infer<typeof RecipeSchema>) => {
   if (!validatedFields.success) {
     return { error: "Invalid fields!" };
   }
+
+  console.log(validatedFields.data);
 };

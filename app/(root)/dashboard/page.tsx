@@ -3,11 +3,11 @@ import { Button } from "@/components/ui/button";
 
 const DashboardPage = () => {
   return (
-    <>
-      <div className="flex justify-end">
+    <div className="container mx-auto">
+      <div className="flex justify-end mt-2">
         <RecipeDialog />
       </div>
-    </>
+    </div>
   );
 };
 
