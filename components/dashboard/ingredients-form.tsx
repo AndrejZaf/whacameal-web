@@ -57,8 +57,6 @@ const IngredientsForm = ({
     ingredientForm.reset();
   });
 
-  console.log(Object.values(measurementType.enumValues));
-
   return (
     <>
       <div className="text-[#627AF7] font-bold uppercase">Ingredients</div>
