@@ -11,9 +11,9 @@ export default async function RootLayout({
   children,
 }: Readonly<{ children: ReactNode }>) {
   return (
-    <>
+    <div className="space-y-4">
       <Navbar />
-      {children}
-    </>
+      <div className="container mx-auto">{children}</div>
+    </div>
   );
 }

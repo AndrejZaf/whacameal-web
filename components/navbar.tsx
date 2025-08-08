@@ -22,27 +22,37 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { BadgeCheck, LogOut, MenuIcon } from "lucide-react";
 import Link from "next/link";
 
-const navigation = [
-  {
-    href: "/",
-    label: "Home",
-  },
-  {
-    href: "/explore",
-    label: "Explore",
-  },
-  {
-    href: "/my-recipes",
-    label: "My Recipes",
-  },
-  {
-    href: "/ai-chef",
-    label: "AI Chef",
-  },
-];
+export interface NavigationItem {
+  href: string;
+  label: string;
+  hidden?: boolean;
+}
 
 const Navbar = () => {
   const { data } = authClient.useSession();
+  const navigation: NavigationItem[] = [
+    {
+      href: "/",
+      label: "Home",
+    },
+    {
+      href: "/dashboard",
+      label: "Dashboard",
+      hidden: !data?.user,
+    },
+    {
+      href: "/explore",
+      label: "Explore",
+    },
+    {
+      href: "/my-recipes",
+      label: "My Recipes",
+    },
+    {
+      href: "/ai-chef",
+      label: "AI Chef",
+    },
+  ];
 
   return (
     <div className="flex items-center justify-between px-4 py-2 md:py-0 bg-[#627AF7] dark:bg-gray-800">
@@ -84,15 +94,17 @@ const Navbar = () => {
         <img alt="Whac a meal" src="./whc_logo.svg" />
       </Link>
       <div className="hidden md:flex gap-4">
-        {navigation.map((item) => (
-          <Link
-            key={item.label}
-            href={item.href}
-            className="transition-all delay-75 text-white uppercase text-lg py-2 font-semibold border-b-4 border-transparent hover:border-white"
-          >
-            <div>{item.label}</div>
-          </Link>
-        ))}
+        {navigation
+          .filter((item) => !item.hidden)
+          .map((item) => (
+            <Link
+              key={item.label}
+              href={item.href}
+              className="transition-all delay-75 text-white uppercase text-lg py-2 font-semibold border-b-4 border-transparent hover:border-white"
+            >
+              <div>{item.label}</div>
+            </Link>
+          ))}
       </div>
       <div className="flex">
         {data && data.user ? (
