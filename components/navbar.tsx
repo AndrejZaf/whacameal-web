@@ -45,10 +45,6 @@ const Navbar = () => {
       label: "Explore",
     },
     {
-      href: "/my-recipes",
-      label: "My Recipes",
-    },
-    {
       href: "/ai-chef",
       label: "AI Chef",
     },
