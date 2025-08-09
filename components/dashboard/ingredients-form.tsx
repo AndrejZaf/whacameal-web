@@ -48,7 +48,7 @@ const IngredientsForm = ({
     defaultValues: {
       name: "",
       amount: 0,
-      type: "",
+      type: undefined,
     },
   });
 

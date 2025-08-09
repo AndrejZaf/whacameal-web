@@ -1,4 +1,5 @@
 import { user } from "@/db/schema/user";
+import { relations } from "drizzle-orm";
 import {
   AnyPgColumn,
   integer,
@@ -57,7 +58,7 @@ export const recipe = pgTable("recipe", {
   image: text("image").notNull(),
 });
 
-export const ingredients = pgTable("ingredient", {
+export const ingredient = pgTable("ingredient", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
@@ -68,3 +69,14 @@ export const ingredients = pgTable("ingredient", {
   amount: integer("amount").notNull(),
   measurementType: measurementType("measurement_type").notNull(),
 });
+
+export const recipeRelations = relations(recipe, ({ many }) => ({
+  ingredients: many(ingredient),
+}));
+
+export const ingredientRelations = relations(ingredient, ({ one }) => ({
+  recipe: one(recipe, {
+    fields: [ingredient.recipeId],
+    references: [recipe.id],
+  }),
+}));

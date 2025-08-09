@@ -1,6 +1,14 @@
 /* eslint-disable @next/next/no-img-element */
 import { findById } from "@/actions/recipe/find-by-id.action";
 import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
   Clock,
   ClockIcon,
   CookingPot,
@@ -71,8 +79,39 @@ const RecipePage = async ({ params }: { params: Promise<{ id: string }> }) => {
         </div>
       </div>
       <div className="flex gap-x-8 mt-8">
-        <div>
+        <div className="min-w-xs">
           <h1 className="text-[#627AF7] uppercase font-bold">Ingredients</h1>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Ingredient</TableHead>
+                <TableHead>Amount</TableHead>
+                <TableHead>Type</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {recipe.ingredients.length === 0 ? (
+                <TableRow>
+                  <TableCell
+                    colSpan={4}
+                    className="text-muted-foreground text-center"
+                  >
+                    {"No ingredients added yet."}
+                  </TableCell>
+                </TableRow>
+              ) : (
+                recipe.ingredients.map((row, index) => (
+                  <TableRow key={row.id}>
+                    <TableCell>{row.name}</TableCell>
+                    <TableCell>{row.amount}</TableCell>
+                    <TableCell className="capitalize">
+                      {row.measurementType.split("_").join(" ").toLowerCase()}
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
+            </TableBody>
+          </Table>
         </div>
         <div>
           <h1 className="text-[#627AF7] uppercase font-bold">Instructions</h1>

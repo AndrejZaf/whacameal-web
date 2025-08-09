@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/db";
-import { recipe } from "@/db/schema/recipe";
+import { ingredient, recipe } from "@/db/schema/recipe";
 import { Recipe } from "@/db/types";
 import { RecipeSchema } from "@/lib/validation/recipe.schema";
 import { z } from "zod";
@@ -36,6 +36,15 @@ export const createRecipe = async (
         image: base64Image,
       })
       .returning();
+
+    const ingredients = validatedFields.data.ingredients.map((ingredient) => ({
+      recipeId: result[0].id,
+      name: ingredient.name,
+      amount: ingredient.amount,
+      measurementType: ingredient.type,
+    }));
+
+    await db.insert(ingredient).values(ingredients);
 
     if (!result || result.length === 0) {
       throw new Error("Failed to create recipe");
