@@ -1,5 +1,5 @@
 import RecipeDialog from "@/components/dashboard/recipe-dialog";
-import { Button } from "@/components/ui/button";
+import RecipesTable from "@/components/dashboard/recipes-table";
 
 const DashboardPage = () => {
   return (
@@ -7,6 +7,7 @@ const DashboardPage = () => {
       <div className="flex justify-end mt-2">
         <RecipeDialog />
       </div>
+      <RecipesTable />
     </div>
   );
 };
