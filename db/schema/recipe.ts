@@ -54,7 +54,7 @@ export const recipe = pgTable("recipe", {
   courseType: courseType("course_type").notNull(),
   recipeType: recipeType("recipe_type").notNull(),
   instructions: text("instructions").notNull(),
-  image: text("image"),
+  image: text("image").notNull(),
 });
 
 export const ingredients = pgTable("ingredient", {
