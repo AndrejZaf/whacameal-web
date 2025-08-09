@@ -8,7 +8,7 @@ import { Clock, ForkKnife } from "lucide-react";
 
 const RecipeCard = () => {
   return (
-    <Card className="group relative aspect-square cursor-pointer hover:bg-[#627AF7] hover:bg-opacity-25 transition duration-300 ease-in-out">
+    <Card className="group relative aspect-square cursor-pointer hover:bg-[#627AF7]/25 transition duration-150 ease-in-out">
       <CardHeader className="p-0 h-2/3 rounded-t-lg">
         <img
           src="/cover.webp"
