@@ -2,7 +2,6 @@
 
 import { db } from "@/db";
 import { ingredient, recipe } from "@/db/schema/recipe";
-import { Recipe } from "@/db/types";
 import { RecipeSchema } from "@/lib/validation/recipe.schema";
 import { z } from "zod";
 
@@ -44,6 +43,7 @@ export const createRecipe = async (
       measurementType: ingredient.type,
     }));
 
+    // TODO: create a separate action for this operation
     await db.insert(ingredient).values(ingredients);
 
     if (!result || result.length === 0) {
