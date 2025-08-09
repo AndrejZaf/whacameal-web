@@ -7,7 +7,7 @@ import {
 } from "./schema/recipe";
 
 export type User = typeof user.$inferSelect;
-export type Recipe = typeof recipe.$inferInsert;
+export type Recipe = typeof recipe.$inferSelect;
 
 export type MeasurementType = typeof measurementType.enumValues;
 export type CourseType = (typeof courseType.enumValues)[number];

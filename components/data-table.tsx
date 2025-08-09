@@ -21,23 +21,33 @@ import {
   PaginationState,
   SortingState,
 } from "@tanstack/react-table";
-import { useMemo, useState } from "react";
+import { Dispatch, SetStateAction, useMemo, useState } from "react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  setPagination: Dispatch<SetStateAction<PaginationState>>;
+  totalPageCount: number;
+  sorting: SortingState;
+  setSorting: Dispatch<SetStateAction<SortingState>>;
+  columnFilters: ColumnFiltersState;
+  setColumnFilters: Dispatch<SetStateAction<ColumnFiltersState>>;
+  pageIndex: number;
+  pageSize: number;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  setPagination,
+  totalPageCount,
+  sorting,
+  setSorting,
+  columnFilters,
+  setColumnFilters,
+  pageIndex,
+  pageSize,
 }: DataTableProps<TData, TValue>) {
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [sorting, setSorting] = useState<SortingState>([]);
-  const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
-    pageIndex: 0,
-    pageSize: 10,
-  });
   const pagination = useMemo(
     () => ({
       pageIndex,
@@ -55,10 +65,16 @@ export function DataTable<TData, TValue>({
     manualPagination: true,
     manualSorting: true,
     manualFiltering: true,
+    state: {
+      sorting,
+      columnFilters,
+      pagination,
+    },
+    pageCount: totalPageCount,
   });
 
   return (
-    <div className="overflow-hidden rounded-md border">
+    <div className="overflow-hidden border">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
