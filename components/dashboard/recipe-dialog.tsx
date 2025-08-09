@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { Button } from "../ui/button";
 import {
   Dialog,
@@ -9,8 +12,9 @@ import {
 import RecipeForm from "./recipe-form";
 
 const RecipeDialog = () => {
+  const [open, setOpen] = useState(false);
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <form>
         <DialogTrigger asChild>
           <Button>Create Recipe</Button>
@@ -19,7 +23,7 @@ const RecipeDialog = () => {
           <DialogHeader>
             <DialogTitle className="font-bold">Add New Recipe</DialogTitle>
           </DialogHeader>
-          <RecipeForm />
+          <RecipeForm setOpen={setOpen} />
         </DialogContent>
       </form>
     </Dialog>

@@ -40,7 +40,7 @@ export const measurementType = pgEnum("measurement_type", [
   "BUNCH",
 ]);
 
-export const recipes = pgTable("recipe", {
+export const recipe = pgTable("recipe", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
@@ -62,7 +62,7 @@ export const ingredients = pgTable("ingredient", {
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
   recipeId: text("recipe_id")
-    .references((): AnyPgColumn => recipes.id)
+    .references((): AnyPgColumn => recipe.id)
     .notNull(),
   name: text("name").notNull(),
   amount: integer("amount").notNull(),

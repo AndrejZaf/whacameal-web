@@ -11,17 +11,22 @@ import ImageForm from "./image-form";
 import IngredientsForm from "./ingredients-form";
 import InstructionsForm from "./instructions-form";
 import RecipeInformation from "./recipe-information";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
-const RecipeForm = () => {
+const RecipeForm = ({ setOpen }: { setOpen: (open: boolean) => void }) => {
+  const session = authClient.useSession();
+  const router = useRouter();
   const form = useForm<z.infer<typeof RecipeSchema>>({
     resolver: zodResolver(RecipeSchema),
     defaultValues: {
       name: "",
-      recipeType: "",
-      course: "",
-      cookTime: "",
-      prepTime: "",
-      servings: "",
+      recipeType: undefined,
+      courseType: undefined,
+      cookTime: 0,
+      prepTime: 0,
+      servings: 0,
       ingredients: [],
       instructions: "",
       image: undefined,
@@ -29,7 +34,17 @@ const RecipeForm = () => {
   });
 
   const handleSubmit = async (values: z.infer<typeof RecipeSchema>) => {
-    await createRecipe(values);
+    if (session.data?.user.id) {
+      try {
+        const result = await createRecipe(values, session.data.user.id);
+        toast.success("Recipe created");
+        router.push(`/recipes/${result.data?.id}`);
+      } catch (_) {
+        toast.error("Error creating recipe");
+      } finally {
+        setOpen(false);
+      }
+    }
   };
 
   return (

@@ -1,13 +1,32 @@
 import { z } from "zod";
 import { IngredientSchema } from "./ingredient.schema";
 
+export const RecipeTypeEnum = z.enum([
+  "BREAKFAST",
+  "BRUNCH",
+  "LUNCH",
+  "DINNER",
+  "SNACK",
+  "LATE_NIGHT",
+  "HOLIDAY",
+]);
+
+export const CourseTypeEnum = z.enum([
+  "APPETIZER",
+  "SOUP",
+  "SALAD",
+  "MAIN_COURSE",
+  "SIDE_DISH",
+  "DESSERT",
+]);
+
 export const RecipeSchema = z.object({
   name: z.string().min(1, "Name is required"),
-  recipeType: z.string().min(1, "Recipe type is required"),
-  cookTime: z.string().min(1, "Cook time is required"),
-  prepTime: z.string().min(1, "Prep time is required"),
-  servings: z.string().min(1, "Servings is required"),
-  course: z.string().min(1, "Course is required"),
+  recipeType: RecipeTypeEnum,
+  cookTime: z.coerce.number({ required_error: "Cook time is required" }),
+  prepTime: z.coerce.number({ required_error: "Prep time is required" }),
+  servings: z.coerce.number({ required_error: "Servings is required" }),
+  courseType: CourseTypeEnum,
   ingredients: z.array(IngredientSchema),
   instructions: z.string().min(1, "Instructions are required"),
   image: z.instanceof(File),

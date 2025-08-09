@@ -82,7 +82,7 @@ const RecipeInformation = ({
             <FormItem className="w-full">
               <FormLabel>Cook Time</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="Cook time" />
+                <Input {...field} type="number" placeholder="Cook time" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -95,7 +95,7 @@ const RecipeInformation = ({
             <FormItem className="w-full">
               <FormLabel>Prep Time</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="Prep time" />
+                <Input {...field} type="number" placeholder="Prep time" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -108,7 +108,7 @@ const RecipeInformation = ({
             <FormItem className="w-full">
               <FormLabel>Servings</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="Servings" />
+                <Input {...field} type="number" placeholder="Servings" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -116,7 +116,7 @@ const RecipeInformation = ({
         />
         <FormField
           control={form.control}
-          name="course"
+          name="courseType"
           render={({ field }) => (
             <FormItem className="w-full">
               <FormLabel>Course</FormLabel>
