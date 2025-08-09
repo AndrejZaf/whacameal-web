@@ -21,7 +21,7 @@ const RecipePage = async ({ params }: { params: Promise<{ id: string }> }) => {
       <img
         src={recipe.image}
         alt={recipe.name}
-        className="w-full h-64 object-cover mb-4"
+        className="w-full h-80 object-cover mb-4"
       />
       <div className="flex gap-x-8">
         <div className="flex">
@@ -54,7 +54,7 @@ const RecipePage = async ({ params }: { params: Promise<{ id: string }> }) => {
         <div className="flex">
           <CookingPot size={48} className="text-[#C1C1C1]" />
           <div className="flex flex-col">
-            <span className="ml-2 text-[#6B6B6B]">Course</span>
+            <span className="ml-2 text-[#6B6B6B]">Course Type</span>
             <span className="ml-2 text-[#627AF7] uppercase font-bold">
               {recipe.courseType.split("_").join(" ").toLowerCase()}
             </span>
@@ -63,7 +63,7 @@ const RecipePage = async ({ params }: { params: Promise<{ id: string }> }) => {
         <div className="flex">
           <Utensils size={48} className="text-[#C1C1C1]" />
           <div className="flex flex-col">
-            <span className="ml-2 text-[#6B6B6B]">Type</span>
+            <span className="ml-2 text-[#6B6B6B]">Recipe Type</span>
             <span className="ml-2 text-[#627AF7] uppercase font-bold">
               {recipe.recipeType.split("_").join(" ").toLowerCase()}
             </span>

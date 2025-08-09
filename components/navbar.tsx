@@ -91,7 +91,7 @@ const Navbar = () => {
         </SheetContent>
       </Sheet>
       <Link href="/" className="flex items-center gap-2">
-        <img alt="Whac a meal" src="./whc_logo.svg" />
+        <img alt="Whac a meal" src="/whc_logo.svg" />
       </Link>
       <div className="hidden md:flex gap-4">
         {navigation
