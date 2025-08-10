@@ -7,15 +7,17 @@ import {
   PaginationState,
   SortingState,
 } from "@tanstack/react-table";
-import { Pen, SquareArrowOutUpRight, Trash } from "lucide-react";
+import { Pen, Search, SquareArrowOutUpRight, Trash } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useDebounce } from "use-debounce";
 import { DataTable } from "../data-table";
 import { DataTableColumnHeader } from "../data-table-column-header";
 import RecipeDialog from "./recipe-dialog";
 import { URLPagination } from "./url-pagination";
 import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 import { deleteById } from "@/actions/recipe/delete-by-id.action";
 import { toast } from "sonner";
 
@@ -24,16 +26,20 @@ const RecipesTable = ({
   totalCount,
   currentPage,
   pageSize: initialPageSize,
+  searchQuery = "",
 }: {
   initialData: Recipe[];
   totalCount: number;
   currentPage: number;
   pageSize: number;
+  searchQuery?: string;
 }) => {
   const [recipe, setRecipe] = useState<Recipe | undefined>(undefined);
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [searchValue, setSearchValue] = useState<string>(searchQuery);
+  const [debouncedSearchValue] = useDebounce(searchValue, 500);
 
   const totalPageCount = Math.ceil(totalCount / initialPageSize);
 
@@ -64,6 +70,22 @@ const RecipesTable = ({
     },
     [router, searchParams]
   );
+
+  // Sync search value with prop changes
+  useEffect(() => {
+    setSearchValue(searchQuery);
+  }, [searchQuery]);
+
+  // Update URL when debounced search value changes
+  useEffect(() => {
+    const currentQuery = searchParams.get("query") || "";
+    if (debouncedSearchValue !== currentQuery) {
+      updateURL({
+        query: debouncedSearchValue || undefined,
+        page: 1, // Reset to first page when searching
+      });
+    }
+  }, [debouncedSearchValue, searchParams, updateURL]);
 
   const setPagination = useCallback(
     (
@@ -224,7 +246,16 @@ const RecipesTable = ({
   return (
     <>
       <div className="space-y-2">
-        <div className="flex justify-end">
+        <div className="flex justify-between items-center gap-4">
+          <div className="relative flex-1 max-w-sm">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+            <Input
+              placeholder="Search recipes..."
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              className="pl-10"
+            />
+          </div>
           <Button
             onClick={() => {
               setRecipe(undefined);
