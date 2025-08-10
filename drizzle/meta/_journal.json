@@ -15,6 +15,13 @@
       "when": 1754652939155,
       "tag": "0001_productive_blue_blade",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1754852768044,
+      "tag": "0002_abnormal_invisible_woman",
+      "breakpoints": true
     }
   ]
 }

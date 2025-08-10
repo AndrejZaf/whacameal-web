@@ -16,6 +16,8 @@ import { DataTableColumnHeader } from "../data-table-column-header";
 import RecipeDialog from "./recipe-dialog";
 import { URLPagination } from "./url-pagination";
 import { Button } from "../ui/button";
+import { deleteById } from "@/actions/recipe/delete-by-id.action";
+import { toast } from "sonner";
 
 const RecipesTable = ({
   initialData,
@@ -98,6 +100,15 @@ const RecipesTable = ({
     [updateURL, initialPageSize]
   );
 
+  const handleDelete = async (id: string) => {
+    try {
+      await deleteById(id);
+      toast.success("Successfuly deleted the recipe");
+    } catch (_) {
+      toast.error("Error deleting recipe");
+    }
+  };
+
   const columns: ColumnDef<Recipe>[] = useMemo(
     () => [
       {
@@ -116,7 +127,6 @@ const RecipesTable = ({
         },
         enableSorting: false,
       },
-
       {
         accessorKey: "name",
         header: ({ column }) => (
@@ -198,7 +208,10 @@ const RecipesTable = ({
                   setOpen(true);
                 }}
               />
-              <Trash className="cursor-pointer h-6 w-6" />
+              <Trash
+                className="cursor-pointer h-6 w-6"
+                onClick={() => handleDelete(row.original.id)}
+              />
             </div>
           );
         },

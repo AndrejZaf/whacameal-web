@@ -63,7 +63,7 @@ export const ingredient = pgTable("ingredient", {
     .primaryKey()
     .$defaultFn(() => crypto.randomUUID()),
   recipeId: text("recipe_id")
-    .references((): AnyPgColumn => recipe.id)
+    .references((): AnyPgColumn => recipe.id, { onDelete: "cascade" })
     .notNull(),
   name: text("name").notNull(),
   amount: integer("amount").notNull(),
