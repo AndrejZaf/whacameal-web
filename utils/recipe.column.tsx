@@ -4,10 +4,28 @@ import { DataTableColumnHeader } from "@/components/data-table-column-header";
 
 export const columns: ColumnDef<Recipe>[] = [
   {
+    accessorKey: "image",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Image" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <img
+          src={row.original.image}
+          alt={row.original.name}
+          className="h-16 w-16"
+        />
+      );
+    },
+    enableSorting: false,
+  },
+
+  {
     accessorKey: "name",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Name" />
     ),
+    enableSorting: false,
   },
   {
     accessorKey: "courseType",
@@ -22,6 +40,7 @@ export const columns: ColumnDef<Recipe>[] = [
         </div>
       );
     },
+    enableSorting: false,
   },
   {
     accessorKey: "recipeType",
@@ -36,6 +55,7 @@ export const columns: ColumnDef<Recipe>[] = [
         </div>
       );
     },
+    enableSorting: false,
   },
   {
     accessorKey: "prepTime",
@@ -46,6 +66,7 @@ export const columns: ColumnDef<Recipe>[] = [
       const prepTime = row.getValue("prepTime") as number;
       return <div>{prepTime} min</div>;
     },
+    enableSorting: false,
   },
   {
     accessorKey: "cookTime",
@@ -56,11 +77,13 @@ export const columns: ColumnDef<Recipe>[] = [
       const cookTime = row.getValue("cookTime") as number;
       return <div>{cookTime} min</div>;
     },
+    enableSorting: false,
   },
   {
     accessorKey: "servings",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Servings" />
     ),
+    enableSorting: false,
   },
 ];
