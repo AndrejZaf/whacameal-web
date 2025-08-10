@@ -52,7 +52,8 @@ const RecipeForm = ({
           await createRecipe(values, session.data.user.id);
           toast.success("Recipe created");
         }
-      } catch (_) {
+      } catch (error) {
+        console.error(error);
         toast.error("Error creating recipe");
       } finally {
         setOpen(false);

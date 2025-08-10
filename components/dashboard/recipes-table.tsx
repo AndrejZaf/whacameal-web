@@ -104,7 +104,8 @@ const RecipesTable = ({
     try {
       await deleteById(id);
       toast.success("Successfuly deleted the recipe");
-    } catch (_) {
+    } catch (error) {
+      console.error(error);
       toast.error("Error deleting recipe");
     }
   };

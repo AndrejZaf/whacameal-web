@@ -21,7 +21,7 @@ import {
   PaginationState,
   SortingState,
 } from "@tanstack/react-table";
-import { Dispatch, SetStateAction, useMemo, useState } from "react";
+import { Dispatch, SetStateAction, useMemo } from "react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

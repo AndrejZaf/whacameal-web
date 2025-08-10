@@ -8,14 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import {
-  Clock,
-  ClockIcon,
-  CookingPot,
-  Hourglass,
-  Users,
-  Utensils,
-} from "lucide-react";
+import { Clock, CookingPot, Hourglass, Users, Utensils } from "lucide-react";
 
 const RecipePage = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
@@ -23,6 +16,7 @@ const RecipePage = async ({ params }: { params: Promise<{ id: string }> }) => {
   if (!recipe) {
     return <div>Recipe not found</div>;
   }
+
   return (
     <div className="container mx-auto pt-8">
       <h1 className="text-2xl font-bold mb-4">{recipe.name}</h1>

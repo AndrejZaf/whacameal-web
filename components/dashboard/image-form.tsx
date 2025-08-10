@@ -1,4 +1,8 @@
 import { RecipeSchema } from "@/lib/validation/recipe.schema";
+import { useEffect, useState } from "react";
+import { UseFormReturn } from "react-hook-form";
+import { z } from "zod";
+import { Button } from "../ui/button";
 import {
   FormControl,
   FormField,
@@ -6,11 +10,7 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { UseFormReturn } from "react-hook-form";
-import { z } from "zod";
-import { useEffect, useState } from "react";
 import { Input } from "../ui/input";
-import { Button } from "../ui/button";
 
 const ImageForm = ({
   form,
@@ -28,8 +28,6 @@ const ImageForm = ({
 
   const onImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-
-    // Clean up previous preview URL if it was created from a File object
     if (imagePreview && !imagePreview.startsWith("data:")) {
       URL.revokeObjectURL(imagePreview);
     }
@@ -46,7 +44,6 @@ const ImageForm = ({
 
   useEffect(() => {
     return () => {
-      // Only revoke URLs that were created with createObjectURL (not data URLs)
       if (imagePreview && !imagePreview.startsWith("data:")) {
         URL.revokeObjectURL(imagePreview);
       }
@@ -55,29 +52,11 @@ const ImageForm = ({
 
   function createImagePreviewUrl(file: File | string): string {
     if (typeof file === "string") {
-      return file; // This is already a data URL from the database
+      return file;
     }
-    return URL.createObjectURL(file); // Create object URL for File objects
+    return URL.createObjectURL(file);
   }
 
-  const handleRemoveImage = () => {
-    form.setValue("image", undefined, { shouldValidate: true });
-
-    // Clean up preview URL if it was created from a File object
-    if (imagePreview && !imagePreview.startsWith("data:")) {
-      URL.revokeObjectURL(imagePreview);
-    }
-
-    setImagePreview(null);
-
-    // Reset the file input
-    const fileInput = document.getElementById(
-      "recipe-image"
-    ) as HTMLInputElement;
-    if (fileInput) {
-      fileInput.value = "";
-    }
-  };
   return (
     <div className="space-y-2">
       <div className="text-[#627AF7] font-bold uppercase">Image</div>
