@@ -19,5 +19,5 @@ export const IngredientSchema = z.object({
   amount: z.coerce
     .number({ required_error: "Amount is required" })
     .min(0, "Amount must be a positive number"),
-  type: MeasurementType,
+  measurementType: MeasurementType,
 });

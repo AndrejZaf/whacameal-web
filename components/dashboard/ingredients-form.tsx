@@ -48,9 +48,11 @@ const IngredientsForm = ({
     defaultValues: {
       name: "",
       amount: 0,
-      type: undefined,
+      measurementType: undefined,
     },
   });
+
+  console.log(fields);
 
   const onAddIngredient = ingredientForm.handleSubmit((values) => {
     append(values);
@@ -98,7 +100,7 @@ const IngredientsForm = ({
           />
           <FormField
             control={ingredientForm.control}
-            name="type"
+            name="measurementType"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Measurement Type</FormLabel>
@@ -167,7 +169,9 @@ const IngredientsForm = ({
                     {form.getValues(`ingredients.${index}.amount`)}
                   </TableCell>
                   <TableCell className="capitalize">
-                    {form.getValues(`ingredients.${index}.type`).toLowerCase()}
+                    {form
+                      .getValues(`ingredients.${index}.measurementType`)
+                      .toLowerCase()}
                   </TableCell>
                   <TableCell className="text-right">
                     <Button

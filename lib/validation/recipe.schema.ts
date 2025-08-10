@@ -29,5 +29,5 @@ export const RecipeSchema = z.object({
   courseType: CourseTypeEnum,
   ingredients: z.array(IngredientSchema),
   instructions: z.string().min(1, "Instructions are required"),
-  image: z.instanceof(File),
+  image: z.instanceof(File).optional(),
 });

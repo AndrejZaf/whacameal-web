@@ -1,16 +1,21 @@
 "use client";
 
-import { Recipe } from "@/db/types";
-import { columns } from "@/utils/recipe.column";
+import { Recipe, RecipeWithIngredients } from "@/db/types";
 import {
+  ColumnDef,
   ColumnFiltersState,
   PaginationState,
   SortingState,
 } from "@tanstack/react-table";
+import { Pen, SquareArrowOutUpRight, Trash } from "lucide-react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 import { DataTable } from "../data-table";
+import { DataTableColumnHeader } from "../data-table-column-header";
+import RecipeDialog from "./recipe-dialog";
 import { URLPagination } from "./url-pagination";
+import { Button } from "../ui/button";
 
 const RecipesTable = ({
   initialData,
@@ -23,6 +28,8 @@ const RecipesTable = ({
   currentPage: number;
   pageSize: number;
 }) => {
+  const [recipe, setRecipe] = useState<Recipe | undefined>(undefined);
+  const [open, setOpen] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -91,29 +98,155 @@ const RecipesTable = ({
     [updateURL, initialPageSize]
   );
 
+  const columns: ColumnDef<Recipe>[] = useMemo(
+    () => [
+      {
+        accessorKey: "image",
+        header: ({ column }) => (
+          <DataTableColumnHeader column={column} title="Image" />
+        ),
+        cell: ({ row }) => {
+          return (
+            <img
+              src={row.original.image}
+              alt={row.original.name}
+              className="h-16 w-16"
+            />
+          );
+        },
+        enableSorting: false,
+      },
+
+      {
+        accessorKey: "name",
+        header: ({ column }) => (
+          <DataTableColumnHeader column={column} title="Name" />
+        ),
+        enableSorting: false,
+      },
+      {
+        accessorKey: "courseType",
+        header: ({ column }) => (
+          <DataTableColumnHeader column={column} title="Course" />
+        ),
+        cell: ({ row }) => {
+          const courseType = row.getValue("courseType") as string;
+          return (
+            <div className="capitalize">
+              {courseType.toLowerCase().replace("_", " ")}
+            </div>
+          );
+        },
+        enableSorting: false,
+      },
+      {
+        accessorKey: "recipeType",
+        header: ({ column }) => (
+          <DataTableColumnHeader column={column} title="Type" />
+        ),
+        cell: ({ row }) => {
+          const recipeType = row.getValue("recipeType") as string;
+          return (
+            <div className="capitalize">
+              {recipeType.toLowerCase().replace("_", " ")}
+            </div>
+          );
+        },
+        enableSorting: false,
+      },
+      {
+        accessorKey: "prepTime",
+        header: ({ column }) => (
+          <DataTableColumnHeader column={column} title="Prep Time" />
+        ),
+        cell: ({ row }) => {
+          const prepTime = row.getValue("prepTime") as number;
+          return <div>{prepTime} min</div>;
+        },
+        enableSorting: false,
+      },
+      {
+        accessorKey: "cookTime",
+        header: ({ column }) => (
+          <DataTableColumnHeader column={column} title="Cook Time" />
+        ),
+        cell: ({ row }) => {
+          const cookTime = row.getValue("cookTime") as number;
+          return <div>{cookTime} min</div>;
+        },
+        enableSorting: false,
+      },
+      {
+        accessorKey: "servings",
+        header: ({ column }) => (
+          <DataTableColumnHeader column={column} title="Servings" />
+        ),
+        enableSorting: false,
+      },
+      {
+        id: "actions",
+        cell: ({ row }) => {
+          return (
+            <div className="flex gap-2 justify-end">
+              <Link href={`/recipes/${row.original.id}`}>
+                <SquareArrowOutUpRight className="cursor-pointer h-6 w-6" />
+              </Link>
+              <Pen
+                className="cursor-pointer h-6 w-6"
+                onClick={() => {
+                  setRecipe(row.original);
+                  setOpen(true);
+                }}
+              />
+              <Trash className="cursor-pointer h-6 w-6" />
+            </div>
+          );
+        },
+      },
+    ],
+    []
+  );
+
   return (
-    <div className="space-y-4">
-      <DataTable
-        columns={columns}
-        data={initialData}
-        setPagination={setPagination}
-        totalPageCount={totalPageCount}
-        sorting={sorting}
-        setSorting={setSorting}
-        columnFilters={columnFilters}
-        setColumnFilters={setColumnFilters}
-        pageIndex={pagination.pageIndex}
-        pageSize={pagination.pageSize}
+    <>
+      <div className="space-y-2">
+        <div className="flex justify-end">
+          <Button
+            onClick={() => {
+              setRecipe(undefined);
+              setOpen(true);
+            }}
+          >
+            Create Recipe
+          </Button>
+        </div>
+        <DataTable
+          columns={columns}
+          data={initialData}
+          setPagination={setPagination}
+          totalPageCount={totalPageCount}
+          sorting={sorting}
+          setSorting={setSorting}
+          columnFilters={columnFilters}
+          setColumnFilters={setColumnFilters}
+          pageIndex={pagination.pageIndex}
+          pageSize={pagination.pageSize}
+        />
+        <URLPagination
+          currentPage={currentPage}
+          pageSize={initialPageSize}
+          totalCount={totalCount}
+          totalPageCount={totalPageCount}
+          onPageChange={handlePageChange}
+          onPageSizeChange={handlePageSizeChange}
+        />
+      </div>
+      <RecipeDialog
+        open={open}
+        setOpen={setOpen}
+        recipe={recipe as RecipeWithIngredients}
       />
-      <URLPagination
-        currentPage={currentPage}
-        pageSize={initialPageSize}
-        totalCount={totalCount}
-        totalPageCount={totalPageCount}
-        onPageChange={handlePageChange}
-        onPageSizeChange={handlePageSizeChange}
-      />
-    </div>
+    </>
   );
 };
 

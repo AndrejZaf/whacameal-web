@@ -3,14 +3,16 @@
 import { db } from "@/db";
 import { ingredient, recipe } from "@/db/schema/recipe";
 import { RecipeSchema } from "@/lib/validation/recipe.schema";
+import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import { deleteAllByRecipeId } from "../ingredient/delete-all-by-recipe-id.action";
 import { createIngredients } from "../ingredient/create-ingredients.action";
 import { Ingredient } from "@/db/types";
 
-export const createRecipe = async (
-  values: z.infer<typeof RecipeSchema>,
-  userId: string
+export const updateRecipe = async (
+  recipeId: string,
+  values: z.infer<typeof RecipeSchema>
 ) => {
   const validatedFields = RecipeSchema.safeParse(values);
   if (!validatedFields.success) {
@@ -29,9 +31,8 @@ export const createRecipe = async (
     };base64,${imageBuffer.toString("base64")}`;
 
     const result = await db
-      .insert(recipe)
-      .values({
-        userId: userId,
+      .update(recipe)
+      .set({
         name: validatedFields.data.name,
         cookTime: validatedFields.data.cookTime,
         prepTime: validatedFields.data.prepTime,
@@ -41,11 +42,13 @@ export const createRecipe = async (
         instructions: validatedFields.data.instructions,
         image: base64Image,
       })
+      .where(eq(recipe.id, recipeId))
       .returning();
 
+    await deleteAllByRecipeId(recipeId);
     await createIngredients(
       validatedFields.data.ingredients as Ingredient[],
-      result[0].id
+      recipeId
     );
 
     if (!result || result.length === 0) {

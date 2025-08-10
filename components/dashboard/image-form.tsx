@@ -18,13 +18,22 @@ const ImageForm = ({
   form: UseFormReturn<z.infer<typeof RecipeSchema>>;
 }) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  useEffect(() => {
+    const currentImage = form.getValues("image");
+    if (currentImage) {
+      const previewUrl = createImagePreviewUrl(currentImage);
+      setImagePreview(previewUrl);
+    }
+  }, [form]);
 
   const onImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    setImagePreview((prev) => {
-      if (prev) URL.revokeObjectURL(prev);
-      return prev;
-    });
+
+    // Clean up previous preview URL if it was created from a File object
+    if (imagePreview && !imagePreview.startsWith("data:")) {
+      URL.revokeObjectURL(imagePreview);
+    }
+
     if (file) {
       form.setValue("image", file, { shouldValidate: true });
       const url = URL.createObjectURL(file);
@@ -37,10 +46,38 @@ const ImageForm = ({
 
   useEffect(() => {
     return () => {
-      if (imagePreview) URL.revokeObjectURL(imagePreview);
+      // Only revoke URLs that were created with createObjectURL (not data URLs)
+      if (imagePreview && !imagePreview.startsWith("data:")) {
+        URL.revokeObjectURL(imagePreview);
+      }
     };
   }, [imagePreview]);
 
+  function createImagePreviewUrl(file: File | string): string {
+    if (typeof file === "string") {
+      return file; // This is already a data URL from the database
+    }
+    return URL.createObjectURL(file); // Create object URL for File objects
+  }
+
+  const handleRemoveImage = () => {
+    form.setValue("image", undefined, { shouldValidate: true });
+
+    // Clean up preview URL if it was created from a File object
+    if (imagePreview && !imagePreview.startsWith("data:")) {
+      URL.revokeObjectURL(imagePreview);
+    }
+
+    setImagePreview(null);
+
+    // Reset the file input
+    const fileInput = document.getElementById(
+      "recipe-image"
+    ) as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = "";
+    }
+  };
   return (
     <div className="space-y-2">
       <div className="text-[#627AF7] font-bold uppercase">Image</div>

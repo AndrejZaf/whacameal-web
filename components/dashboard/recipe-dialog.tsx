@@ -1,29 +1,28 @@
 "use client";
 
-import { useState } from "react";
-import { Button } from "../ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "../ui/dialog";
+import { RecipeWithIngredients } from "@/db/types";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import RecipeForm from "./recipe-form";
 
-const RecipeDialog = () => {
-  const [open, setOpen] = useState(false);
+const RecipeDialog = ({
+  open,
+  setOpen,
+  recipe,
+}: {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  recipe: RecipeWithIngredients | undefined;
+}) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <form>
-        <DialogTrigger asChild>
-          <Button>Create Recipe</Button>
-        </DialogTrigger>
         <DialogContent className="lg:min-w-4xl max-h-10/12 overflow-y-auto">
           <DialogHeader>
-            <DialogTitle className="font-bold">Add New Recipe</DialogTitle>
+            <DialogTitle className="font-bold">
+              {recipe ? "Edit Recipe" : "Add New Recipe"}
+            </DialogTitle>
           </DialogHeader>
-          <RecipeForm setOpen={setOpen} />
+          <RecipeForm recipe={recipe} setOpen={setOpen} />
         </DialogContent>
       </form>
     </Dialog>

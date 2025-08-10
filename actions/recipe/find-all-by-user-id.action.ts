@@ -8,12 +8,13 @@ export const findAllByUserId = async (
   page: number
 ) => {
   const offset = (page - 1) * size;
-  const data = await db
-    .select()
-    .from(recipe)
-    .where(eq(recipe.userId, userId))
-    .limit(size)
-    .offset(offset);
+
+  const data = await db.query.recipe.findMany({
+    where: eq(recipe.userId, userId),
+    with: { ingredients: true },
+    offset: offset,
+    limit: size,
+  });
   const totalCount = await db
     .select({ count: count() })
     .from(recipe)

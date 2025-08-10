@@ -1,6 +1,5 @@
 import { findAllByUserId } from "@/actions/recipe/find-all-by-user-id.action";
 import { auth } from "@/auth";
-import RecipeDialog from "@/components/dashboard/recipe-dialog";
 import RecipesTable from "@/components/dashboard/recipes-table";
 import { headers } from "next/headers";
 
@@ -30,10 +29,7 @@ const DashboardPage = async (props: {
   );
 
   return (
-    <div className="container mx-auto space-y-2 mt-2">
-      <div className="flex justify-end">
-        <RecipeDialog />
-      </div>
+    <div className="container mx-auto mt-2">
       <RecipesTable
         currentPage={currentPage}
         initialData={recipesData.data}
