@@ -73,7 +73,7 @@ const RecipePage = async ({ params }: { params: Promise<{ id: string }> }) => {
         </div>
       </div>
       <div className="flex gap-x-8 mt-8">
-        <div className="min-w-xs">
+        <div className="min-w-md">
           <h1 className="text-[#627AF7] uppercase font-bold">Ingredients</h1>
           <Table>
             <TableHeader>
