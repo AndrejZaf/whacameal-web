@@ -12,7 +12,6 @@ export const findAll = async (
   const offset = (page - 1) * size;
   const data = await db.query.recipe.findMany({
     where: ilike(recipe.name, `%${searchQuery}%`),
-    with: { ingredients: true },
     offset: offset,
     limit: size,
   });

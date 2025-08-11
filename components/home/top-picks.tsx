@@ -5,7 +5,7 @@ import Link from "next/link";
 import React from "react";
 
 const TopPicks = async () => {
-  const recipes = await findAll(1, 4, "");
+  const recipes = await findAll(4, 1, "");
   return (
     <div className="container mx-auto space-y-6">
       <div className="text-center text-3xl font-semibold">Our Top Picks</div>

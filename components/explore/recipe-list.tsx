@@ -3,7 +3,7 @@
 import { findAll } from "@/actions/recipe/find-all.action";
 import RecipeCard from "@/components/recipe-card";
 import { Input } from "@/components/ui/input";
-import { RecipeWithIngredients } from "@/db/types";
+import { Recipe } from "@/db/types";
 import { useInfiniteScroll } from "@/hooks/use-infinite-scroll";
 import { Loader2, Search } from "lucide-react";
 import Image from "next/image";
@@ -13,7 +13,7 @@ import { useDebounce } from "use-debounce";
 const RECIPES_PER_PAGE = 12;
 
 const RecipeList = () => {
-  const [recipes, setRecipes] = useState<RecipeWithIngredients[]>([]);
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
