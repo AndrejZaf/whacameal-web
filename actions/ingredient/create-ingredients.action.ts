@@ -13,6 +13,5 @@ export const createIngredients = async (
     measurementType: ingredient.measurementType,
   }));
 
-  // TODO: create a separate action for this operation
   await db.insert(ingredient).values(newIngredients);
 };

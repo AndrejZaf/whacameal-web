@@ -71,18 +71,16 @@ const RecipesTable = ({
     [router, searchParams]
   );
 
-  // Sync search value with prop changes
   useEffect(() => {
     setSearchValue(searchQuery);
   }, [searchQuery]);
 
-  // Update URL when debounced search value changes
   useEffect(() => {
     const currentQuery = searchParams.get("query") || "";
     if (debouncedSearchValue !== currentQuery) {
       updateURL({
         query: debouncedSearchValue || undefined,
-        page: 1, // Reset to first page when searching
+        page: 1,
       });
     }
   }, [debouncedSearchValue, searchParams, updateURL]);
@@ -95,7 +93,7 @@ const RecipesTable = ({
         typeof updater === "function" ? updater(pagination) : updater;
 
       updateURL({
-        page: newPagination.pageIndex + 1, // Convert back to 1-based indexing for URL
+        page: newPagination.pageIndex + 1,
         pageSize:
           newPagination.pageSize !== initialPageSize
             ? newPagination.pageSize
