@@ -220,17 +220,17 @@ const RecipesTable = ({
           return (
             <div className="flex gap-2 justify-end">
               <Link href={`/recipes/${row.original.id}`}>
-                <SquareArrowOutUpRight className="cursor-pointer h-6 w-6" />
+                <SquareArrowOutUpRight className="cursor-pointer h-5 w-5" />
               </Link>
               <Pen
-                className="cursor-pointer h-6 w-6"
+                className="cursor-pointer h-5 w-5"
                 onClick={() => {
                   setRecipe(row.original);
                   setOpen(true);
                 }}
               />
               <Trash
-                className="cursor-pointer h-6 w-6"
+                className="cursor-pointer h-5 w-5"
                 onClick={() => handleDelete(row.original.id)}
               />
             </div>
