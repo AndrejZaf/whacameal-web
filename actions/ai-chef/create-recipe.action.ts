@@ -90,7 +90,7 @@ interface RecipeResponse {
 export const createAIRecipe = async (prompt: string, userId: string) => {
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash-001",
+      model: "gemini-1.5-flash",
       contents: prompt,
       config: {
         systemInstruction,
@@ -99,6 +99,7 @@ export const createAIRecipe = async (prompt: string, userId: string) => {
     });
 
     const recipeData = JSON.parse(response.text!) as RecipeResponse;
+    // TODO: Find a free image generation API
     const recipeId = await db
       .insert(recipe)
       .values({
