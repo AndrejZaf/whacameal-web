@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Textarea } from "../ui/textarea";
+import { toast } from "sonner";
 
 const RecipePrompt = () => {
   const { data } = authClient.useSession();
@@ -29,8 +30,19 @@ const RecipePrompt = () => {
 
   const handleSubmit = async (values: z.infer<typeof RecipePromptSchema>) => {
     if (data?.user) {
-      const recipeId = await createAIRecipe(values.prompt, data.user.id);
-      router.push(`/recipes/${recipeId}`);
+      const promise = createAIRecipe(values.prompt, data.user.id);
+
+      toast.promise(promise, {
+        loading: "Creating recipe...",
+        success: "Recipe created successfully!",
+        error: "Failed to save recipe. Please try again.",
+      });
+      try {
+        const recipeId = await promise;
+        router.push(`/recipes/${recipeId}`);
+      } catch (error) {
+        console.error(error);
+      }
     }
   };
 

@@ -20,6 +20,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { deleteById } from "@/actions/recipe/delete-by-id.action";
 import { toast } from "sonner";
+import DeleteDialog from "../delete-dialog";
 
 const RecipesTable = ({
   initialData,
@@ -40,7 +41,7 @@ const RecipesTable = ({
   const searchParams = useSearchParams();
   const [searchValue, setSearchValue] = useState<string>(searchQuery);
   const [debouncedSearchValue] = useDebounce(searchValue, 500);
-
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const totalPageCount = Math.ceil(totalCount / initialPageSize);
 
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -120,13 +121,23 @@ const RecipesTable = ({
     [updateURL, initialPageSize]
   );
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async () => {
+    if (!recipe) {
+      return;
+    }
+
+    const promise = deleteById(recipe?.id);
+    toast.promise(promise, {
+      loading: "Deleting recipe...",
+      success: "Recipe deleted successfully!",
+      error: "Failed to delete recipe. Please try again.",
+    });
     try {
-      await deleteById(id);
-      toast.success("Successfuly deleted the recipe");
+      await promise;
     } catch (error) {
       console.error(error);
-      toast.error("Error deleting recipe");
+    } finally {
+      setOpenDeleteDialog(false);
     }
   };
 
@@ -231,7 +242,10 @@ const RecipesTable = ({
               />
               <Trash
                 className="cursor-pointer h-5 w-5"
-                onClick={() => handleDelete(row.original.id)}
+                onClick={() => {
+                  setRecipe(row.original);
+                  setOpenDeleteDialog(true);
+                }}
               />
             </div>
           );
@@ -288,6 +302,11 @@ const RecipesTable = ({
         open={open}
         setOpen={setOpen}
         recipe={recipe as RecipeWithIngredients}
+      />
+      <DeleteDialog
+        open={openDeleteDialog}
+        setOpen={setOpenDeleteDialog}
+        handleSubmit={handleDelete}
       />
     </>
   );
