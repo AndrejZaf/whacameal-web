@@ -90,7 +90,7 @@ interface RecipeResponse {
 export const createAIRecipe = async (prompt: string, userId: string) => {
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-1.5-flash",
+      model: "gemini-2.0-flash",
       contents: prompt,
       config: {
         systemInstruction,

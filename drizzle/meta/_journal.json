@@ -22,6 +22,13 @@
       "when": 1754852768044,
       "tag": "0002_abnormal_invisible_woman",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1754988577899,
+      "tag": "0003_empty_vision",
+      "breakpoints": true
     }
   ]
 }
