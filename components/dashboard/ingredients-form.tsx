@@ -52,8 +52,6 @@ const IngredientsForm = ({
     },
   });
 
-  console.log(fields);
-
   const onAddIngredient = ingredientForm.handleSubmit((values) => {
     append(values);
     ingredientForm.reset();
