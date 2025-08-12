@@ -21,6 +21,7 @@ import { authClient } from "@/lib/auth-client";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { BadgeCheck, LogOut, MenuIcon } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export interface NavigationItem {
   href: string;
@@ -30,6 +31,7 @@ export interface NavigationItem {
 
 const Navbar = () => {
   const { data } = authClient.useSession();
+  const router = useRouter();
   const navigation: NavigationItem[] = [
     {
       href: "/",
@@ -131,7 +133,10 @@ const Navbar = () => {
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 className="cursor-pointer"
-                onClick={() => authClient.signOut()}
+                onClick={() => {
+                  authClient.signOut();
+                  router.push("/");
+                }}
               >
                 <LogOut />
                 Log out
