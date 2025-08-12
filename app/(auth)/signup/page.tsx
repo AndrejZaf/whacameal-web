@@ -1,7 +1,13 @@
 import AuthSidebar from "@/components/auth-sidebar";
 import SignupForm from "@/components/auth/signup-form";
+import { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
+
+export const metadata: Metadata = {
+  title: "Sign Up",
+  description: "Create a new account",
+};
 
 const SignupPage = () => {
   return (

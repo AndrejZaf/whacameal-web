@@ -1,6 +1,12 @@
 import RecipePrompt from "@/components/ai-chef/recipe-prompt";
 import React from "react";
 import Image from "next/image";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "AI Chef",
+  description: "Your personal AI Chef",
+};
 
 const ChefPage = () => {
   return (

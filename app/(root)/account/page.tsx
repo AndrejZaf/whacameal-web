@@ -6,6 +6,12 @@ import {
   TabsTrigger,
   VerticalTabs,
 } from "@/components/ui/vertical-tabs";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Account",
+  description: "Manage your account preferences",
+};
 
 const AccountPage = () => {
   return (

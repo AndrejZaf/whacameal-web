@@ -2,8 +2,14 @@ import { findAllByUserId } from "@/actions/recipe/find-all-by-user-id.action";
 import { auth } from "@/auth";
 import RecipesTable from "@/components/dashboard/recipes-table";
 import RecipesTableSkeleton from "@/components/dashboard/recipes-table-skeleton";
+import { Metadata } from "next";
 import { headers } from "next/headers";
 import { Suspense } from "react";
+
+export const metadata: Metadata = {
+  title: "Dashboard",
+  description: "Manage your recipes",
+};
 
 const DashboardPage = async (props: {
   searchParams?: Promise<{

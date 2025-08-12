@@ -2,7 +2,13 @@ import { accountVerification } from "@/actions/auth/account-verification.action"
 import AuthSidebar from "@/components/auth-sidebar";
 import FormError from "@/components/form-error";
 import { Button } from "@/components/ui/button";
+import { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Verification",
+  description: "Verify your account",
+};
 
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
