@@ -8,7 +8,6 @@ const PAGE = 1;
 const SEARCH = "";
 
 const TopPicks = async () => {
-  await new Promise((resolve) => setTimeout(resolve, 3000));
   const recipes = await findAll(PAGE_SIZE, PAGE, SEARCH);
   return (
     <div className="container mx-auto space-y-6">
