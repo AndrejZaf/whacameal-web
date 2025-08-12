@@ -28,12 +28,12 @@ const RecipeForm = ({
   const form = useForm<z.infer<typeof RecipeSchema>>({
     resolver: zodResolver(RecipeSchema),
     defaultValues: {
-      name: recipe?.name,
-      recipeType: recipe?.recipeType,
-      courseType: recipe?.courseType,
-      cookTime: recipe?.cookTime,
-      prepTime: recipe?.prepTime,
-      servings: recipe?.servings,
+      name: recipe?.name || "",
+      recipeType: recipe?.recipeType || undefined,
+      courseType: recipe?.courseType || undefined,
+      cookTime: recipe?.cookTime || 0,
+      prepTime: recipe?.prepTime || 0,
+      servings: recipe?.servings || 0,
       ingredients: recipe?.ingredients || [],
       instructions: recipe?.instructions || "",
       image: recipe?.image
@@ -72,7 +72,11 @@ const RecipeForm = ({
         <RecipeInformation form={form} />
         <IngredientsForm form={form} />
         <InstructionsForm form={form} />
-        <Button type="submit" className="float-end">
+        <Button
+          type="submit"
+          className="float-end"
+          disabled={form.formState.isSubmitting}
+        >
           Save Changes
         </Button>
       </form>

@@ -26,7 +26,11 @@ const InstructionsForm = ({
             <FormItem className="w-full">
               <FormLabel>Instructions</FormLabel>
               <FormControl>
-                <Textarea {...field} placeholder="Instructions" />
+                <Textarea
+                  {...field}
+                  placeholder="Instructions"
+                  disabled={form.formState.isSubmitting}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

@@ -36,7 +36,11 @@ const RecipeInformation = ({
             <FormItem className="w-full">
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="Recipe Name" />
+                <Input
+                  {...field}
+                  placeholder="Recipe Name"
+                  disabled={form.formState.isSubmitting}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -52,7 +56,10 @@ const RecipeInformation = ({
               <FormControl>
                 <Select onValueChange={field.onChange}>
                   <FormControl>
-                    <SelectTrigger className="w-full capitalize">
+                    <SelectTrigger
+                      className="w-full capitalize"
+                      disabled={form.formState.isSubmitting}
+                    >
                       <SelectValue placeholder={"Select type"} />
                     </SelectTrigger>
                   </FormControl>
@@ -82,7 +89,12 @@ const RecipeInformation = ({
             <FormItem className="w-full">
               <FormLabel>Cook Time</FormLabel>
               <FormControl>
-                <Input {...field} type="number" placeholder="Cook time" />
+                <Input
+                  {...field}
+                  type="number"
+                  placeholder="Cook time"
+                  disabled={form.formState.isSubmitting}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -95,7 +107,12 @@ const RecipeInformation = ({
             <FormItem className="w-full">
               <FormLabel>Prep Time</FormLabel>
               <FormControl>
-                <Input {...field} type="number" placeholder="Prep time" />
+                <Input
+                  {...field}
+                  type="number"
+                  placeholder="Prep time"
+                  disabled={form.formState.isSubmitting}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -108,7 +125,12 @@ const RecipeInformation = ({
             <FormItem className="w-full">
               <FormLabel>Servings</FormLabel>
               <FormControl>
-                <Input {...field} type="number" placeholder="Servings" />
+                <Input
+                  {...field}
+                  type="number"
+                  placeholder="Servings"
+                  disabled={form.formState.isSubmitting}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -123,7 +145,10 @@ const RecipeInformation = ({
               <FormControl>
                 <Select onValueChange={field.onChange}>
                   <FormControl>
-                    <SelectTrigger className="w-full capitalize">
+                    <SelectTrigger
+                      className="w-full capitalize"
+                      disabled={form.formState.isSubmitting}
+                    >
                       <SelectValue placeholder={"Select type"} />
                     </SelectTrigger>
                   </FormControl>

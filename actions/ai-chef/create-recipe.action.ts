@@ -78,7 +78,7 @@ Fallbacks
 - If the request would produce unsafe or impossible instructions (e.g., severe allergy conflicts with all provided ingredients), ask a single clarifying question and do not output a recipe until resolved. Otherwise proceed with safe substitutions.
 
 
-Regarding the image, please provide a URL link to something similar at least.
+Regarding the image which is part of the recipe object, please provide a URL link to something similar at least and make sure that the link works and does not return any HTTP error status code.
 
 Return only the JSON object defined above.
 `;

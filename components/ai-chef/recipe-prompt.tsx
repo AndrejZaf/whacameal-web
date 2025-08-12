@@ -1,7 +1,10 @@
 "use client";
 
+import { createAIRecipe } from "@/actions/ai-chef/create-recipe.action";
+import { authClient } from "@/lib/auth-client";
 import { RecipePromptSchema } from "@/lib/validation/prompt.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "../ui/button";
@@ -10,13 +13,9 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "../ui/form";
 import { Textarea } from "../ui/textarea";
-import { createAIRecipe } from "@/actions/ai-chef/create-recipe.action";
-import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
 
 const RecipePrompt = () => {
   const { data } = authClient.useSession();
@@ -27,6 +26,7 @@ const RecipePrompt = () => {
       prompt: "",
     },
   });
+
   const handleSubmit = async (values: z.infer<typeof RecipePromptSchema>) => {
     if (data?.user) {
       const recipeId = await createAIRecipe(values.prompt, data.user.id);
@@ -48,13 +48,21 @@ const RecipePrompt = () => {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
-                  <Textarea {...field} placeholder="" />
+                  <Textarea
+                    {...field}
+                    placeholder=""
+                    disabled={form.formState.isSubmitting}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <Button type="submit" className="float-end">
+          <Button
+            type="submit"
+            className="float-end"
+            disabled={form.formState.isSubmitting}
+          >
             Generate Recipe
           </Button>
         </form>

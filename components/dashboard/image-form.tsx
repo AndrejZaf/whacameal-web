@@ -70,6 +70,7 @@ const ImageForm = ({
                 <FormLabel htmlFor="recipe-image">Recipe Image</FormLabel>
                 <FormControl>
                   <Input
+                    disabled={form.formState.isSubmitting}
                     id="recipe-image"
                     type="file"
                     accept="image/*"
@@ -91,7 +92,7 @@ const ImageForm = ({
                 return null;
               });
             }}
-            disabled={!imagePreview}
+            disabled={!imagePreview || form.formState.isSubmitting}
           >
             Remove image
           </Button>
