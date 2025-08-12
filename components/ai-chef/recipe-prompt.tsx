@@ -47,9 +47,6 @@ const RecipePrompt = () => {
             name="prompt"
             render={({ field }) => (
               <FormItem className="w-full">
-                <FormLabel>
-                  Think of the ingredients that you have and we will do the rest
-                </FormLabel>
                 <FormControl>
                   <Textarea {...field} placeholder="" />
                 </FormControl>
