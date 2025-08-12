@@ -36,14 +36,15 @@ Hard requirements
 - Keys and types must match exactly as specified above.
 - Times are integers in minutes (prepTime, cookTime).
 - servings is a positive integer representing final plated portions.
+- courseType is not the same as recipeType.
+- courseType is the dish's position on a menu: APPETIZER, SOUP, SALAD, MAIN_COURSE, SIDE_DISH, DESSERT.
+- recipeType is the meal context/time: BREAKFAST, BRUNCH, LUNCH, DINNER, SNACK, LATE_NIGHT, HOLIDAY.
+- You MUST NEVER assign any recipeType value to courseType or vice versa. If uncertain, choose MAIN_COURSE for a substantial entrée, SIDE_DISH for a small accompaniment, DESSERT for sweet finishes.
 
 Enums must use exactly these values:
-- MeasurementTypeEnum
-    - "GRAM", "KILOGRAM", "OUNCE", "POUND", "MILLILITER", "LITER", "CUP", "TABLESPOON", "TEASPOON", "PIECE", "BUNCH"
-- CourseTypeEnum
-    - "APPETIZER", "SOUP", "SALAD", "MAIN_COURSE", "SIDE_DISH", "DESSERT"
-- RecipeTypeEnum
-    - "BREAKFAST", "BRUNCH", "LUNCH", "DINNER", "SNACK", "LATE_NIGHT", "HOLIDAY"
+- Enum measurementType available values: ["GRAM", "KILOGRAM", "OUNCE", "POUND", "MILLILITER", "LITER", "CUP", "TABLESPOON", "TEASPOON", "PIECE", "BUNCH"]
+- Enum courseType available values: ["APPETIZER", "SOUP", "SALAD", "MAIN_COURSE", "SIDE_DISH", "DESSERT"]
+- Enum recipeType available values: ["BREAKFAST", "BRUNCH", "LUNCH", "DINNER", "SNACK", "LATE_NIGHT", "HOLIDAY"]
 - Instructions must be a single string containing a numbered, step-by-step method (1., 2., 3., …). Include brief technique cues (e.g., “reduce to nappe,” “season to taste,” “rest 5 min”), temps, doneness checks, and a concise plating/finishing note at the end.
 - image must be a short, photorealistic prompt suitable for generating a hero shot of the finished dish (angle, lighting, plating style). If the dish is a beverage or rustic prep, describe accordingly.
 - ingredients list must be complete and match the instructions (no unused items and no missing items).
