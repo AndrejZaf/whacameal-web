@@ -25,17 +25,18 @@ const RecipeForm = ({
   recipe: RecipeWithIngredients | undefined;
 }) => {
   const session = authClient.useSession();
+  console.log(RecipeSchema.safeParse(recipe));
   const form = useForm<z.infer<typeof RecipeSchema>>({
     resolver: zodResolver(RecipeSchema),
     defaultValues: {
-      name: recipe?.name || "",
-      recipeType: recipe?.recipeType || undefined,
-      courseType: recipe?.courseType || undefined,
-      cookTime: recipe?.cookTime || 0,
-      prepTime: recipe?.prepTime || 0,
-      servings: recipe?.servings || 0,
-      ingredients: recipe?.ingredients || [],
-      instructions: recipe?.instructions || "",
+      name: recipe?.name,
+      recipeType: recipe?.recipeType,
+      courseType: recipe?.courseType,
+      cookTime: recipe?.cookTime,
+      prepTime: recipe?.prepTime,
+      servings: recipe?.servings,
+      ingredients: recipe?.ingredients,
+      instructions: recipe?.instructions,
       image: recipe?.image
         ? dataUrlToFile(recipe?.image, `recipe-${recipe.id}.jpg`)
         : undefined,
@@ -44,17 +45,21 @@ const RecipeForm = ({
 
   const handleSubmit = async (values: z.infer<typeof RecipeSchema>) => {
     if (session.data?.user.id) {
+      const promise = recipe
+        ? updateRecipe(recipe.id, values)
+        : createRecipe(values, session.data.user.id);
+
+      toast.promise(promise, {
+        loading: recipe ? "Updating recipe..." : "Creating recipe...",
+        success: recipe
+          ? "Recipe updated successfully!"
+          : "Recipe created successfully!",
+        error: "Failed to save recipe. Please try again.",
+      });
       try {
-        if (recipe) {
-          await updateRecipe(recipe.id, values);
-          toast.success("Recipe updated");
-        } else {
-          await createRecipe(values, session.data.user.id);
-          toast.success("Recipe created");
-        }
+        await promise;
       } catch (error) {
         console.error(error);
-        toast.error("Error creating recipe");
       } finally {
         setOpen(false);
       }

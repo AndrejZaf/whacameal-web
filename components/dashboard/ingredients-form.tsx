@@ -47,7 +47,7 @@ const IngredientsForm = ({
     resolver: zodResolver(IngredientSchema),
     defaultValues: {
       name: "",
-      amount: "0",
+      amount: 0,
       measurementType: undefined,
     },
   });

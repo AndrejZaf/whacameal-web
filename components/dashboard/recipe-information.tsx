@@ -54,7 +54,11 @@ const RecipeInformation = ({
             <FormItem className="w-full">
               <FormLabel>Recipe Type</FormLabel>
               <FormControl>
-                <Select onValueChange={field.onChange}>
+                <Select
+                  value={field.value}
+                  defaultValue={field.value}
+                  onValueChange={field.onChange}
+                >
                   <FormControl>
                     <SelectTrigger
                       className="w-full capitalize"
@@ -143,7 +147,11 @@ const RecipeInformation = ({
             <FormItem className="w-full">
               <FormLabel>Course</FormLabel>
               <FormControl>
-                <Select onValueChange={field.onChange}>
+                <Select
+                  value={field.value}
+                  defaultValue={field.value}
+                  onValueChange={field.onChange}
+                >
                   <FormControl>
                     <SelectTrigger
                       className="w-full capitalize"

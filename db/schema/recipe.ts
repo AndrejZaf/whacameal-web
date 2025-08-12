@@ -3,7 +3,7 @@ import { relations } from "drizzle-orm";
 import {
   AnyPgColumn,
   integer,
-  decimal,
+  numeric,
   pgEnum,
   pgTable,
   text,
@@ -67,7 +67,7 @@ export const ingredient = pgTable("ingredient", {
     .references((): AnyPgColumn => recipe.id, { onDelete: "cascade" })
     .notNull(),
   name: text("name").notNull(),
-  amount: decimal("amount").notNull(),
+  amount: numeric("amount").notNull(),
   measurementType: measurementType("measurement_type").notNull(),
 });
 
