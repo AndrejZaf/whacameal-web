@@ -1,7 +1,9 @@
 import { findAllByUserId } from "@/actions/recipe/find-all-by-user-id.action";
 import { auth } from "@/auth";
 import RecipesTable from "@/components/dashboard/recipes-table";
+import RecipesTableSkeleton from "@/components/dashboard/recipes-table-skeleton";
 import { headers } from "next/headers";
+import { Suspense } from "react";
 
 const DashboardPage = async (props: {
   searchParams?: Promise<{
@@ -32,13 +34,18 @@ const DashboardPage = async (props: {
 
   return (
     <div className="container mx-auto mt-2">
-      <RecipesTable
-        currentPage={currentPage}
-        initialData={recipesData.data}
-        pageSize={pageSize}
-        totalCount={recipesData.totalCount}
-        searchQuery={searchQuery}
-      />
+      <Suspense
+        key={searchQuery + currentPage}
+        fallback={<RecipesTableSkeleton />}
+      >
+        <RecipesTable
+          currentPage={currentPage}
+          initialData={recipesData.data}
+          pageSize={pageSize}
+          totalCount={recipesData.totalCount}
+          searchQuery={searchQuery}
+        />
+      </Suspense>
     </div>
   );
 };
