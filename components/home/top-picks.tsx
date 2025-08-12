@@ -2,10 +2,14 @@ import { findAll } from "@/actions/recipe/find-all.action";
 import RecipeCard from "@/components/recipe-card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import React from "react";
+
+const PAGE_SIZE = 4;
+const PAGE = 1;
+const SEARCH = "";
 
 const TopPicks = async () => {
-  const recipes = await findAll(4, 1, "");
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+  const recipes = await findAll(PAGE_SIZE, PAGE, SEARCH);
   return (
     <div className="container mx-auto space-y-6">
       <div className="text-center text-3xl font-semibold">Our Top Picks</div>
