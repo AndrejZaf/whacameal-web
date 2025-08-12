@@ -5,33 +5,40 @@ import { ReactNode } from "react";
 import "./globals.css";
 
 const montserrat = Montserrat({
-    variable: "--font-montserrat",
-    subsets: ["latin"],
+  variable: "--font-montserrat",
+  subsets: ["latin"],
 });
 
 const opensans = Open_Sans({
-    variable: "--font-open-sans",
-    subsets: ["latin"],
+  variable: "--font-open-sans",
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-    title: "Whac a Meal",
-    description: "Find your ideal recipe",
+  title: {
+    template: "%s | Whac A Meal",
+    default: "Whac A Meal",
+  },
+  description: "Find your delicious meal",
 };
 
-export default function RootLayout({ children }: Readonly<{ children: ReactNode; }>) {
-    return (
-        <html lang="en" suppressHydrationWarning>
-        <body className={`${montserrat.variable} ${opensans.variable} antialiased`}>
+export default function RootLayout({
+  children,
+}: Readonly<{ children: ReactNode }>) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${montserrat.variable} ${opensans.variable} antialiased`}
+      >
         <ThemeProvider
-            attribute="class"
-            defaultTheme="light"
-            enableSystem
-            disableTransitionOnChange
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
         >
-            {children}
+          {children}
         </ThemeProvider>
-        </body>
-        </html>
-    );
+      </body>
+    </html>
+  );
 }
