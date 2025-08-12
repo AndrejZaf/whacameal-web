@@ -1,3 +1,4 @@
+import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
@@ -19,6 +20,7 @@ export default async function RootLayout({
       <Navbar />
       {children}
       <Toaster richColors />
+      <Footer />
     </>
   );
 }
