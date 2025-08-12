@@ -16,6 +16,6 @@ export const MeasurementType = z.enum([
 
 export const IngredientSchema = z.object({
   name: z.string().min(1, "Ingredient name is required"),
-  amount: z.number({ required_error: "Amount is required" }),
+  amount: z.coerce.number().positive("Amount must be positive"),
   measurementType: MeasurementType,
 });

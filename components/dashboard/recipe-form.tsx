@@ -35,7 +35,13 @@ const RecipeForm = ({
       cookTime: recipe?.cookTime,
       prepTime: recipe?.prepTime,
       servings: recipe?.servings,
-      ingredients: recipe?.ingredients,
+      ingredients: recipe?.ingredients?.map((ingredient) => ({
+        ...ingredient,
+        amount:
+          typeof ingredient.amount === "string"
+            ? parseFloat(ingredient.amount)
+            : ingredient.amount,
+      })),
       instructions: recipe?.instructions,
       image: recipe?.image
         ? dataUrlToFile(recipe?.image, `recipe-${recipe.id}.jpg`)

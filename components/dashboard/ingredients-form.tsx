@@ -89,6 +89,9 @@ const IngredientsForm = ({
                   <Input
                     id="ingredient-amount"
                     placeholder="Amount"
+                    type="number"
+                    step="0.01"
+                    min="0"
                     {...field}
                   />
                 </FormControl>
