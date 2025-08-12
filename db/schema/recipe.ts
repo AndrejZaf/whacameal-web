@@ -67,7 +67,7 @@ export const ingredient = pgTable("ingredient", {
     .references((): AnyPgColumn => recipe.id, { onDelete: "cascade" })
     .notNull(),
   name: text("name").notNull(),
-  amount: numeric("amount").notNull(),
+  amount: integer("amount").notNull(),
   measurementType: measurementType("measurement_type").notNull(),
 });
 
