@@ -1,5 +1,5 @@
 <p align="center">
-<img align="center" width="300" alt="Pokeball Logo" src="./public/whc_logo.svg" />
+<img align="center" width="300" alt="Whac a Meal" src="./public/whc_logo.svg" />
 </p>
 <h1 align="center" style="font-weight: bold;">Whac a Meal</h1>
 
@@ -9,23 +9,22 @@
 </p>
 
 <p align="center">
-    <b>Exploring NextJS by creating a blog like application for managing and exploring recipes.
-    </b>
+    <b>Exploring NextJS by creating a blog like application for managing and exploring recipes.</b>
 </p>
 
 <p align="center">
-
-[//]: # (<img align="center" alt="Pokeball Logo" src="./public/chrome_TGFPhysk4K.gif" />)
+<img align="center" alt="Whac a Meal" src="./public/chrome-capture-2025-08-13.gif" />
 </p>
-
 <h2 id="technologies">💻 Technologies</h2>
 
 - ![NextJS](https://img.shields.io/badge/Next.js-black?logo=next.js&logoColor=white)
 - ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff)
 - ![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff)
-- ![PostgreSQL](https://img.shields.io/badge/Postgresql-30363D?logo=postgresql&logoColor=white)
+- ![Postgres](https://img.shields.io/badge/Postgres-%23316192.svg?logo=postgresql&logoColor=white)
 - ![shadcn/ui](https://img.shields.io/badge/shadcn%2Fui-000?logo=shadcnui&logoColor=fff)
 - ![TailwindCSS](https://img.shields.io/badge/Tailwind%20CSS-%2338B2AC.svg?logo=tailwind-css&logoColor=white)
+- ![BetterAuth](https://img.shields.io/badge/Better%20Auth-3C3C3D?logo=betterauth&logoColor=white)
+- ![GoogleGemini](https://img.shields.io/badge/Google%20Gemini-8E75B2?logo=googlegemini&logoColor=white)
 
 <h2 id="started">🚀 Getting started</h2>
 <h3>Prerequisites</h3>
@@ -38,3 +37,16 @@
 
 - Clone the project, install the node dependencies by running `npm install` and then you can start the application with
   `npm run dev`.
+- Run the docker-compose.yml file located in the root of the project. This will allow you to bootstrap some of the project dependencies such as keycloak, ngrok, mailhog and the database.
+- Create your own `.env` file with the following key-value pairs
+
+```
+DATABASE_URL=postgres://postgres:postgres@localhost:5432/wam
+HOST=<HOST_URL>
+SMTP_PORT=<SMTP_PORT>
+SMTP_EMAIL=<SMTP_EMAIL>
+SMTP_HOST=<SMTP_HOST>
+BETTER_AUTH_SECRET=<BETTER_AUTH_SECRET>
+BETTER_AUTH_URL=<BETTER_AUTH_OR_HOST_URL>
+GEMINI_API_KEY=<YOUR_GEMINI_KEY>
+```

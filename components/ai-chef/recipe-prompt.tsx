@@ -47,12 +47,12 @@ const RecipePrompt = () => {
   };
 
   return (
-    <div className="container mx-auto mt-4">
+    <div className="flex justify-center w-full container mx-auto">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSubmit)}
           noValidate
-          className="space-y-2"
+          className="space-y-2 w-full"
         >
           <FormField
             control={form.control}
