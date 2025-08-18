@@ -1,7 +1,7 @@
 <p align="center">
 <img align="center" width="300" alt="Whac a Meal" src="./public/whc_logo.svg" />
 </p>
-<h1 align="center" style="font-weight: bold;">Whac a Meal</h1>
+<h1 align="center" style="font-weight: bold;">Whac A Meal</h1>
 
 <p align="center">
   <a href="#tech">Technologies</a> •
@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-    <b>Exploring NextJS by creating a blog like application for managing and exploring recipes.</b>
+    <b>Exploring NextJS by creating a blog like application for managing, exploring recipes and leveraging Google Gemini for content generation.</b>
 </p>
 
 <p align="center">
