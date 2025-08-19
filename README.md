@@ -38,7 +38,7 @@
 - Clone the project, install the node dependencies by running `npm install` and then you can start the application with
   `npm run dev`.
 - Run the docker-compose.yml file located in the root of the project. This will allow you to bootstrap some of the project dependencies such as keycloak, ngrok, mailhog and the database.
-- Create your own `.env` file with the following key-value pairs
+- Create your own `.env` file in the root directory of your project with the following key-value pairs.
 
 ```
 DATABASE_URL=postgres://postgres:postgres@localhost:5432/wam
