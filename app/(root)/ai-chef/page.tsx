@@ -2,6 +2,7 @@ import RecipePrompt from "@/components/ai-chef/recipe-prompt";
 import React from "react";
 import Image from "next/image";
 import { Metadata } from "next";
+import Chef404 from "@/components/ai-chef/chef-404";
 
 export const metadata: Metadata = {
   title: "AI Chef",
@@ -33,6 +34,7 @@ const ChefPage = () => {
         height={120}
         className="mx-auto mb-4"
       />
+      {process.env.ENABLE_GEMINI !== "true" && <Chef404 />}
       <RecipePrompt />
     </div>
   );

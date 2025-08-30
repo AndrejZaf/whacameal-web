@@ -17,7 +17,7 @@ export const auth = betterAuth({
   plugins: [username()],
   emailAndPassword: {
     enabled: true,
-    requireEmailVerification: true,
+    requireEmailVerification: process.env.ENABLE_EMAIL_SENDING === "true",
     sendResetPassword: async ({ user, token }) => {
       const mailOptions = {
         from: process.env.SMTP_EMAIL,
@@ -29,7 +29,7 @@ export const auth = betterAuth({
     },
   },
   emailVerification: {
-    sendOnSignUp: true,
+    sendOnSignUp: process.env.ENABLE_EMAIL_SENDING === "true",
     sendVerificationEmail: async ({ user, token }) => {
       const mailOptions = {
         from: process.env.SMTP_EMAIL,
@@ -42,6 +42,7 @@ export const auth = betterAuth({
   },
   socialProviders: {
     google: {
+      enabled: process.env.ENABLE_GMAIL_OAUTH2 === "true",
       clientId: process.env.GOOGLE_CLIENT_ID || "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
     },

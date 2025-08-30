@@ -6,6 +6,7 @@ import { RecipePromptSchema } from "@/lib/validation/prompt.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 import { Button } from "../ui/button";
 import {
@@ -16,7 +17,6 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Textarea } from "../ui/textarea";
-import { toast } from "sonner";
 
 const RecipePrompt = () => {
   const { data } = authClient.useSession();
@@ -63,7 +63,10 @@ const RecipePrompt = () => {
                   <Textarea
                     {...field}
                     placeholder=""
-                    disabled={form.formState.isSubmitting}
+                    disabled={
+                      form.formState.isSubmitting ||
+                      process.env.ENABLE_GEMINI !== "true"
+                    }
                   />
                 </FormControl>
                 <FormMessage />
@@ -73,7 +76,10 @@ const RecipePrompt = () => {
           <Button
             type="submit"
             className="float-end"
-            disabled={form.formState.isSubmitting}
+            disabled={
+              form.formState.isSubmitting ||
+              process.env.ENABLE_GEMINI !== "true"
+            }
           >
             Generate Recipe
           </Button>
