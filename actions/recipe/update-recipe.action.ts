@@ -46,10 +46,19 @@ export const updateRecipe = async (
       .returning();
 
     await deleteAllByRecipeId(recipeId);
-    await createIngredients(
-      validatedFields.data.ingredients as Ingredient[],
-      recipeId
+
+    const ingredients: Ingredient[] = validatedFields.data.ingredients.map(
+      (ingredient) => {
+        return {
+          id: crypto.randomUUID(),
+          name: ingredient.name,
+          recipeId: result[0].id,
+          amount: ingredient.amount.toString(),
+          measurementType: ingredient.measurementType,
+        };
+      }
     );
+    await createIngredients(ingredients, recipeId);
 
     if (!result || result.length === 0) {
       throw new Error("Failed to create recipe");

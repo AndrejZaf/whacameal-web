@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/db";
-import { ingredient, recipe } from "@/db/schema/recipe";
+import { ingredient, measurementType, recipe } from "@/db/schema/recipe";
 import { RecipeSchema } from "@/lib/validation/recipe.schema";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
@@ -43,10 +43,19 @@ export const createRecipe = async (
       })
       .returning();
 
-    await createIngredients(
-      validatedFields.data.ingredients as Ingredient[],
-      result[0].id
+    const ingredients: Ingredient[] = validatedFields.data.ingredients.map(
+      (ingredient) => {
+        return {
+          id: crypto.randomUUID(),
+          name: ingredient.name,
+          recipeId: result[0].id,
+          amount: ingredient.amount.toString(),
+          measurementType: ingredient.measurementType,
+        };
+      }
     );
+
+    await createIngredients(ingredients, result[0].id);
 
     if (!result || result.length === 0) {
       throw new Error("Failed to create recipe");
