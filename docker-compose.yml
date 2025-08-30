@@ -13,3 +13,9 @@ services:
     ports:
       - "1025:1025"
       - "8025:8025"
+  whacameal_web:
+    build: .
+    container_name: whacameal_web
+    restart: unless-stopped
+    ports:
+      - "3003:3000"
