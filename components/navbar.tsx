@@ -122,14 +122,14 @@ const Navbar = () => {
               align="end"
               sideOffset={4}
             >
-              <DropdownMenuItem>
-                <Link href="/account">
+              <Link href="/account">
+                <DropdownMenuItem>
                   <div className="flex text-sm gap-2 items-center justify-start">
                     <BadgeCheck size={16} />
                     Account
                   </div>
-                </Link>
-              </DropdownMenuItem>
+                </DropdownMenuItem>
+              </Link>
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 className="cursor-pointer"
