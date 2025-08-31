@@ -32,12 +32,14 @@ import {
   SelectValue,
 } from "../ui/select";
 import { measurementType } from "@/db/schema/recipe";
+import { useState } from "react";
 
 const IngredientsForm = ({
   form,
 }: {
   form: UseFormReturn<z.infer<typeof RecipeSchema>>;
 }) => {
+  const [resetKey, setResetKey] = useState(0);
   const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: "ingredients",
@@ -55,6 +57,7 @@ const IngredientsForm = ({
   const onAddIngredient = ingredientForm.handleSubmit((values) => {
     append(values);
     ingredientForm.reset();
+    setResetKey((prev) => prev + 1);
   });
 
   return (
@@ -106,7 +109,11 @@ const IngredientsForm = ({
               <FormItem className="w-full">
                 <FormLabel>Measurement Type</FormLabel>
                 <FormControl>
-                  <Select onValueChange={field.onChange}>
+                  <Select
+                    key={resetKey}
+                    onValueChange={field.onChange}
+                    value={field.value}
+                  >
                     <FormControl>
                       <SelectTrigger className="w-full capitalize">
                         <SelectValue placeholder={"Select type"} />
@@ -171,7 +178,7 @@ const IngredientsForm = ({
                   </TableCell>
                   <TableCell className="capitalize">
                     {form
-                      .getValues(`ingredients.${index}.measurementType`)
+                      .getValues(`ingredients.${index}.measurementType`)!
                       .toLowerCase()}
                   </TableCell>
                   <TableCell className="text-right">
